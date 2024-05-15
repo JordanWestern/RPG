@@ -1,5 +1,6 @@
 ﻿using RPG.Domain.Entities;
 using RPG.Domain.Repositories;
+using RPG.Infrastructure.DbContexts;
 
 namespace RPG.Infrastructure.Repositories;
 

@@ -1,4 +1,4 @@
-﻿namespace RPG.App.States;
+﻿namespace RPG.App;
 
 public class CommandHandler : ICommandHandler
 {

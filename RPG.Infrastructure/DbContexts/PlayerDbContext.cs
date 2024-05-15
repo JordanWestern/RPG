@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RPG.Domain.Entities;
 
-namespace RPG.Infrastructure;
+namespace RPG.Infrastructure.DbContexts;
 
 public class PlayerDbContext : DbContext
 {

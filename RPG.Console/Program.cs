@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RPG.App;
 using RPG.App.Game;
 using RPG.App.States;
 using RPG.Domain.Events;
 using RPG.Domain.Repositories;
-using RPG.Infrastructure;
+using RPG.Infrastructure.DbContexts;
 using RPG.Infrastructure.Repositories;
 
 
