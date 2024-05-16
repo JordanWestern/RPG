@@ -34,7 +34,11 @@ void AddGame(IServiceCollection services)
     services.AddScoped<IGameLoop, GameLoop>();
 }
 
-void RegisterMenus(IServiceCollection services) => services.AddTransient<StartMenu>();
+void RegisterMenus(IServiceCollection services)
+{
+    services.AddTransient<StartMenu>();
+    services.AddTransient<PlayerClassMenu>();
+}
 
 void RegisterStates(IServiceCollection services)
 {
