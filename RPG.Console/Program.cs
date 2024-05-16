@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Hosting;
 using RPG.App;
 using RPG.App.Game;
+using RPG.App.Menus;
 using RPG.App.States;
+using RPG.Console;
 using RPG.Domain.Events;
 using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
@@ -17,8 +19,8 @@ IHostBuilder CreateHostBuilder(string[] strings) =>
     Host.CreateDefaultBuilder()
         .ConfigureServices((_, services) =>
         {
-            services.AddScoped<IGame, Game>();
-            services.AddScoped<IGameLoop, GameLoop>();
+            AddGame(services);
+            RegisterMenus(services);
             RegisterStates(services);
             RegisterCommands(services);
             RegisterEvents(services);
@@ -26,28 +28,26 @@ IHostBuilder CreateHostBuilder(string[] strings) =>
             AddDbContexts(services);
         });
 
-void RegisterStates(IServiceCollection services) => services.AddScoped<GameStart>();
+void AddGame(IServiceCollection services)
+{
+    services.AddScoped<IGame, Game>();
+    services.AddScoped<IGameLoop, GameLoop>();
+}
+
+void RegisterMenus(IServiceCollection services) => services.AddTransient<StartMenu>();
+
+void RegisterStates(IServiceCollection services)
+{
+    services.AddTransient<GameStart>();
+    services.AddTransient<GameExit>();
+    services.AddTransient<NewGame>();
+}
 
 void RegisterCommands(IServiceCollection services) =>
-    services.AddScoped<ICommandHandler>(_ => new CommandHandler(RequestPlayerName));
+    services.AddTransient<IDialog>(_ => new Dialog(Prompt.Menu, Prompt.Single));
 
-void RegisterEvents(IServiceCollection services) => services.AddScoped<IPlayerCreatedEventHandler, PlayerCreatedEventHandler>();
+void RegisterEvents(IServiceCollection services) => services.AddTransient<IPlayerCreatedEventHandler, PlayerCreatedEventHandler>();
 
-void RegisterRepositories(IServiceCollection services) => services.AddScoped<IPlayerRepository, PlayerRepository>();
+void RegisterRepositories(IServiceCollection services) => services.AddTransient<IPlayerRepository, PlayerRepository>();
 
 void AddDbContexts(IServiceCollection services) => services.AddDbContext<PlayerDbContext>();
-
-string RequestPlayerName()
-{
-    Console.WriteLine("What is your name?");
-
-    string? name;
-
-    do
-    {
-        name = Console.ReadLine();
-
-    } while (string.IsNullOrWhiteSpace(name));
-
-    return name;
-}

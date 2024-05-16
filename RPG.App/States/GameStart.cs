@@ -1,27 +1,21 @@
-﻿using RPG.Domain.Entities;
-using RPG.Domain.Events;
+﻿using RPG.App.Menus;
 
 namespace RPG.App.States;
 
 public class GameStart : IState
 {
-    private readonly ICommandHandler _commandHandler;
-    private readonly IPlayerCreatedEventHandler _playerCreatedEventHandler;
+    private readonly IDialog _dialog;
+    private readonly IMenu _startMenu;
+    private readonly IState _newGame;
+    private readonly IState _gameExit;
 
-    public GameStart(ICommandHandler commandHandler, IPlayerCreatedEventHandler playerCreatedEventHandler)
+    public GameStart(StartMenu startMenu, IDialog dialog, NewGame newGame, GameExit gameExit)
     {
-        _commandHandler = commandHandler;
-        _playerCreatedEventHandler = playerCreatedEventHandler;
+        _dialog = dialog;
+        _newGame = newGame;
+        _gameExit = gameExit;
+        _startMenu = startMenu;
     }
-    
-    public IState Handle()
-    {
-        var name = _commandHandler.GetPlayerName();
 
-        var player = Player.Create(name);
-
-        _playerCreatedEventHandler.OnPlayerCreated(player);
-        
-        return new GameExit();
-    }
+    public IState Handle() => _dialog.GetMenuSelection(_startMenu) == StartMenu.Exit ? _gameExit : _newGame;
 }
