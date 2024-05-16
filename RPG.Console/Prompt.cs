@@ -3,6 +3,7 @@ using Spectre.Console;
 
 namespace RPG.Console;
 
+// https://spectreconsole.net/
 internal static class Prompt
 {
     public static string Menu(IMenu menu) =>
