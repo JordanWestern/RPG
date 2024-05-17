@@ -1,21 +1,23 @@
-﻿using RPG.App.Menus;
+﻿using RPG.App.Views;
 
 namespace RPG.App.States;
 
 public class StartGame : IState
 {
-    private readonly IDialog _dialog;
-    private readonly IMenu _startMenu;
+    private readonly IGui _gui;
     private readonly IState _newGame;
     private readonly IState _gameExit;
 
-    public StartGame(StartMenu startMenu, IDialog dialog, NewGame newGame, GameExit gameExit)
+    public StartGame(IGui gui, NewGame newGame, GameExit gameExit)
     {
-        _dialog = dialog;
+        _gui = gui;
         _newGame = newGame;
         _gameExit = gameExit;
-        _startMenu = startMenu;
     }
 
-    public IState Handle() => _dialog.GetMenuSelection(_startMenu) == StartMenu.Exit ? _gameExit : _newGame;
+    public IState Handle()
+    {
+        _gui.Initialize(new StartGameView());
+        return _gameExit;
+    }
 }
