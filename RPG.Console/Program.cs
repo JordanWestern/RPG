@@ -9,7 +9,38 @@ using RPG.Domain.Events;
 using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
 using RPG.Infrastructure.Repositories;
+using Terminal.Gui;
+using Dialog = RPG.App.Dialog;
 
+
+Application.Init();
+
+// Create a window
+var win = new Window("ListView Example")
+{
+    X = 0,
+    Y = 1, // Leave space for the top-level menu
+    Width = Dim.Fill(),
+    Height = Dim.Fill()
+};
+
+// Create a list view
+var listView = new ListView(new string[] { "Item 1", "Item 2", "Item 3" })
+{
+    X = 1,
+    Y = 1,
+    Width = Dim.Fill() - 2, // Leave some space for the border
+    Height = Dim.Fill() - 2 // Leave some space for the border
+};
+
+// Add the list view to the window
+win.Add(listView);
+
+// Add the window to the application
+Application.Top.Add(win);
+
+// Run the application
+Application.Run();
 
 using var host = CreateHostBuilder(args).Build();
 using var scope = host.Services.CreateScope();
@@ -42,7 +73,7 @@ void RegisterMenus(IServiceCollection services)
 
 void RegisterStates(IServiceCollection services)
 {
-    services.AddTransient<GameStart>();
+    services.AddTransient<StartGame>();
     services.AddTransient<GameExit>();
     services.AddTransient<NewGame>();
 }

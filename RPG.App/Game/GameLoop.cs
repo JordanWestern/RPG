@@ -6,9 +6,9 @@ public class GameLoop : IGameLoop
 {
     private IState _state;
 
-    public GameLoop(GameStart gameStart)
+    public GameLoop(StartGame startGame)
     {
-        _state = gameStart;
+        _state = startGame;
     }
 
     public bool IsRunning => _state is not GameExit;
