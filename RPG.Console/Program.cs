@@ -9,9 +9,16 @@ using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
 using RPG.Infrastructure.Repositories;
 
-using var host = CreateHostBuilder(args).Build();
-using var scope = host.Services.CreateScope();
-scope.ServiceProvider.GetRequiredService<IGame>().Start();
+//using var host = CreateHostBuilder(args).Build();
+//using var scope = host.Services.CreateScope();
+//scope.ServiceProvider.GetRequiredService<IGame>().Start();
+
+using Terminal.Gui;
+
+Application.Run<ExampleWindow>();
+
+// Before the application exits, reset Terminal.Gui for clean shutdown
+Application.Shutdown();
 
 IHostBuilder CreateHostBuilder(string[] strings) =>
     Host.CreateDefaultBuilder()
