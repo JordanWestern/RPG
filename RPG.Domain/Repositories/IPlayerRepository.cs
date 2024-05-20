@@ -4,6 +4,9 @@ namespace RPG.Domain.Repositories;
 
 public interface IPlayerRepository
 {
-    void Save(Player player);
-    Player Load();
+    void SaveNewPlayer(Player player);
+
+    bool HasExistingPlayers();
+    
+    IEnumerable<Player> GetExistingPlayers();
 }

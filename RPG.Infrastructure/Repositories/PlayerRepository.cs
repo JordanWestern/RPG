@@ -13,11 +13,13 @@ public class PlayerRepository : IPlayerRepository
         _context = context;
     }
     
-    public void Save(Player player)
+    public void SaveNewPlayer(Player player)
     {
         _context.Players.Add(player);
         _context.SaveChanges();
     }
 
-    public Player Load() => throw new NotImplementedException();
+    public bool HasExistingPlayers() => _context.Players.Any();
+    
+    public IEnumerable<Player> GetExistingPlayers() => _context.Players;
 }

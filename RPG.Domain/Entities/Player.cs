@@ -12,5 +12,9 @@ public class Player
 
     public string Name { get; }
 
-    public static Player Create(string name) => new(Guid.NewGuid(), name);
+    public static Player Create(string name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        return new Player(Guid.NewGuid(), name);
+    }
 }
