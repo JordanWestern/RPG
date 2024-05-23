@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.Console", "RPG.Console\RPG.Console.csproj", "{08411396-7DFF-4A58-9470-D610FA702DBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.Console", "RPG.Console\RPG.Console.csproj", "{08411396-7DFF-4A58-9470-D610FA702DBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.Domain", "RPG.Domain\RPG.Domain.csproj", "{30940019-35B7-425D-8D3C-62E250323114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.Domain", "RPG.Domain\RPG.Domain.csproj", "{30940019-35B7-425D-8D3C-62E250323114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.App", "RPG.App\RPG.App.csproj", "{99BA570A-2269-48D2-9A82-7648F950278C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.App", "RPG.App\RPG.App.csproj", "{99BA570A-2269-48D2-9A82-7648F950278C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.Infrastructure", "RPG.Infrastructure\RPG.Infrastructure.csproj", "{ED2E3D22-FED6-4B7F-9C29-78AFDBE4E4C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.Infrastructure", "RPG.Infrastructure\RPG.Infrastructure.csproj", "{ED2E3D22-FED6-4B7F-9C29-78AFDBE4E4C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,36 @@
+{
+  "Name": "Test map",
+  "Locations": [
+    {
+      "Id": "d4b3e526-64f4-4d52-b1bd-f6e4e20550f8",
+      "Name": "Old town",
+      "Description": "an old dusty town.",
+      "Connections": [
+        "101a2e81-3a56-473a-8e8b-81bcc0a30712",
+        "e4c5abeb-4d6e-4b23-b7db-194f425b6492"
+      ],
+      "IsStart": true
+    },
+    {
+      "Id": "101a2e81-3a56-473a-8e8b-81bcc0a30712",
+      "Name": "Fresh water spring",
+      "Description": "A fresh water spring, filled with fish.",
+      "Connections": [ "d4b3e526-64f4-4d52-b1bd-f6e4e20550f8" ]
+    },
+    {
+      "Id": "e4c5abeb-4d6e-4b23-b7db-194f425b6492",
+      "Name": "Muddy path",
+      "Description": "A tired muddy path. It is overgrown and barely used.",
+      "Connections": [
+        "d4b3e526-64f4-4d52-b1bd-f6e4e20550f8",
+        "7bd1e0ab-6261-4f04-b9e6-ff828e2fe372"
+      ]
+    },
+    {
+      "Id": "7bd1e0ab-6261-4f04-b9e6-ff828e2fe372",
+      "Name": "The town graveyard",
+      "Description": "A quiet graveyard. Many people are buried here.",
+      "Connections": [ "e4c5abeb-4d6e-4b23-b7db-194f425b6492" ]
+    }
+  ]
+}
