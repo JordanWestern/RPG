@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RPG.App.Services;
+using RPG.Console;
 using RPG.Console.Windows;
 using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
@@ -11,16 +12,23 @@ ConfigureServices(serviceCollection);
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
 Application.Init();
-var startScreen = serviceProvider.GetService<Start>();
-Application.Top.Add(startScreen);
+Application.Top.Add(serviceProvider.GetRequiredService<MainMenuWindow>());
 Application.Run();
 
 static void ConfigureServices(IServiceCollection services)
 {
-    services.AddTransient<Start>();
-    services.AddTransient<PlayerCreation>();
-    services.AddTransient<PlayerSelection>();
+    AddViews(services);
+    services.AddTransient<INavigate, Navigate>();
     services.AddTransient<IPlayerService, PlayerService>();
     services.AddTransient<IPlayerRepository, PlayerRepository>();
     services.AddDbContext<PlayerDbContext>();
+}
+
+static void AddViews(IServiceCollection services)
+{
+    services.AddTransient<MainMenuWindow>();
+    services.AddTransient<PlayerCreationWindow>();
+    services.AddTransient<PlayerSelectionWindow>();
+    services.AddTransient<ContinueWindow>();
+    services.AddTransient<BattleScreen>();
 }

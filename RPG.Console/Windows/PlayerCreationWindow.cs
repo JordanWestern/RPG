@@ -1,18 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RPG.App.Contracts;
+﻿using RPG.App.Contracts;
 using RPG.App.Services;
 using Terminal.Gui;
 
 namespace RPG.Console.Windows
 {
-    public class PlayerCreation : Window
+    public class PlayerCreationWindow : Window
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public PlayerCreation(IServiceProvider serviceProvider, IPlayerService playerService) : base("Player Creation")
+        public PlayerCreationWindow(IPlayerService playerService, INavigate navigate) : base("Player Creation")
         {
-            _serviceProvider = serviceProvider;
-            // Create name input
             var nameLabel = new Label("Name:")
             {
                 X = 2,
@@ -37,8 +32,8 @@ namespace RPG.Console.Windows
                 
                 if (newPlayer.IsValid())
                 {
-                    playerService.CreateNewPlayer(newPlayer);
-                    StartGame();
+                    var existingPlayer = playerService.CreateNewPlayer(newPlayer);
+                    navigate.To<BattleScreen>();
                 }
                 else
                 {
@@ -46,16 +41,7 @@ namespace RPG.Console.Windows
                 }
             };
 
-            // Add controls to the window
             Add(nameLabel, nameField, createButton);
-        }
-        
-        private void StartGame()
-        {
-            var start = _serviceProvider.GetRequiredService<Start>();
-            Application.Top.RemoveAll();
-            Application.Top.Add(start);
-            Application.Refresh();
         }
     }
 }

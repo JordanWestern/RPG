@@ -1,27 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RPG.App.Contracts;
-using RPG.App.Services;
+﻿using RPG.App.Contracts;
 using Terminal.Gui;
 
 namespace RPG.Console.Windows
 {
-    public class PlayerSelection : Window
+    public class PlayerSelectionWindow : Window
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IPlayerService _playerService;
+        private readonly INavigate _navigate;
+        private readonly IReadOnlyList<ExistingPlayer> _existingPlayers;
         private ExistingPlayer _selectedPlayer;
 
-        public PlayerSelection(IServiceProvider serviceProvider, IPlayerService playerService) : base("Continue")
+        public PlayerSelectionWindow(IEnumerable<ExistingPlayer> existingPlayers, INavigate navigate) : base("Continue")
         {
-            _serviceProvider = serviceProvider;
-            _playerService = playerService;
+            _navigate = navigate;
+            _existingPlayers = existingPlayers.ToList();
             InitializeComponents();
         }
 
         private void InitializeComponents()
         {
-            var existingPlayers = _playerService.GetExistingPlayers().ToList();
-
             var titleLabel = new Label("Select a player to continue:")
             {
                 X = Pos.Center(),
@@ -29,7 +25,7 @@ namespace RPG.Console.Windows
             };
             Add(titleLabel);
 
-            var listView = new ListView(existingPlayers.Select(player => player.Name).ToList())
+            var listView = new ListView(_existingPlayers.Select(player => player.Name).ToList())
             {
                 X = Pos.Percent(10),
                 Y = Pos.Top(titleLabel) + 1,
@@ -39,7 +35,7 @@ namespace RPG.Console.Windows
             };
             listView.SelectedItemChanged += _ =>
             {
-                _selectedPlayer = existingPlayers.Single(player => player.Id == existingPlayers[listView.SelectedItem].Id);
+                _selectedPlayer = _existingPlayers.Single(player => player.Id == _existingPlayers[listView.SelectedItem].Id);
             };
             Add(listView);
 
@@ -52,9 +48,7 @@ namespace RPG.Console.Windows
             {
                 if (_selectedPlayer != null)
                 {
-                    // Handle continuation logic with selected player
                     MessageBox.Query("Continue", $"Selected player: {_selectedPlayer.Name}", "Ok");
-                    // Implement the logic to continue the game with the selected player
                 }
                 else
                 {
@@ -70,11 +64,7 @@ namespace RPG.Console.Windows
             };
             backButton.Clicked += () =>
             {
-                // Navigate back to the start screen
-                var startScreen = _serviceProvider.GetRequiredService<Start>();
-                Application.Top.RemoveAll();
-                Application.Top.Add(startScreen);
-                Application.Refresh();
+                _navigate.To<ContinueWindow>();
             };
             Add(backButton);
         }

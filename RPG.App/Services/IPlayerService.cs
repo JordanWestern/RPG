@@ -4,7 +4,7 @@ namespace RPG.App.Services;
 
 public interface IPlayerService
 {
-    void CreateNewPlayer(NewPlayer newPlayer);
+    ExistingPlayer CreateNewPlayer(NewPlayer newPlayer);
 
     public bool HasExistingPlayers();
     

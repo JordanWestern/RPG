@@ -13,10 +13,11 @@ public class PlayerService : IPlayerService
         _repository = repository;
     }
 
-    public void CreateNewPlayer(NewPlayer newPlayer)
+    public ExistingPlayer CreateNewPlayer(NewPlayer newPlayer)
     {
         var entity = Player.Create(newPlayer.Name);
         _repository.SaveNewPlayer(entity);
+        return new ExistingPlayer(entity.Id, entity.Name);
     }
 
     public bool HasExistingPlayers() => _repository.HasExistingPlayers();
