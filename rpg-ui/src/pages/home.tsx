@@ -2,16 +2,16 @@ import { Container, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../components/sidebar/sidebar";
 import LogTable from "../components/log-table/log-table";
 
-export function Main() {
+export function Home() {
   return (
     <Grid container>
-      <Grid item>
+      <Grid item xs={4}>
         <Sidebar />
       </Grid>
-      <Grid item>
+      <Grid item xs={8} md={12}>
         <Container>
-          <Stack spacing={5} justifyContent={"center"}>
-            <Typography variant="h1">A very sexual text-based adventure game.</Typography>
+          <Stack spacing={5}>
+            <Typography variant="h1">A very sexual, text-based adventure game.</Typography>
             <LogTable/>
           </Stack>
         </Container>
@@ -20,4 +20,4 @@ export function Main() {
   );
 }
 
-export default Main;
+export default Home;
