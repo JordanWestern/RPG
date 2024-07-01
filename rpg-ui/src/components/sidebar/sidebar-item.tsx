@@ -9,10 +9,16 @@ import { ReactElement } from "react";
 type SidebarItemProps = {
   text: string;
   icon: ReactElement;
-  open: boolean;
+  expanded: boolean;
+  onClick: () => void;
 };
 
-export function SidebarItem({ text, icon, open }: SidebarItemProps) {
+export function SidebarItem({
+  text,
+  icon,
+  expanded: open,
+  onClick,
+}: SidebarItemProps) {
   return (
     <ListItem key={text} disablePadding sx={{ display: "block" }}>
       <ListItemButton
@@ -21,6 +27,7 @@ export function SidebarItem({ text, icon, open }: SidebarItemProps) {
           justifyContent: open ? "initial" : "center",
           px: 2.5,
         }}
+        onClick={onClick}
       >
         <ListItemIcon
           sx={{
