@@ -50,28 +50,35 @@ const dummyDataRows = [
     "19:39:59",
     "You travelled to the Forbiddon forest. It's cold and quiet."
   ),
-  createData("19:40:01", "You encountered a dire wolf.")
+  createData("19:40:01", "You encountered a dire wolf."),
 ];
 
-export default function LogTable() {
+const LogTable = () => {
   return (
-      <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>
-        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table" size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Time</TableCell>
-              <TableCell>Log message</TableCell>
+    <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>
+      <Table
+        stickyHeader
+        sx={{ minWidth: 650 }}
+        aria-label="simple table"
+        size="small"
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell>Time</TableCell>
+            <TableCell>Log message</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {dummyDataRows.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell>{row.time}</TableCell>
+              <TableCell>{row.logMessage}</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {dummyDataRows.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>{row.time}</TableCell>
-                <TableCell>{row.logMessage}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-}
+};
+
+export default LogTable;

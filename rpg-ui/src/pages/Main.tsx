@@ -7,7 +7,7 @@ import useCheckApiStatus from "../api/hooks/use-check-api-status";
 import Spinner from "../shared/spinner";
 import "./Main.css";
 
-export function Main() {
+const Main = () => {
   const [apiReady, setApiReady] = useState(false);
 
   useCheckApiStatus(setApiReady);
@@ -41,4 +41,6 @@ export function Main() {
       </Grid>
     </div>
   );
-}
+};
+
+export default Main;

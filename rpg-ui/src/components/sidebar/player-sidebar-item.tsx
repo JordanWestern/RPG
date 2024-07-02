@@ -1,4 +1,4 @@
-import { SidebarItem } from "../sidebar/sidebar-item";
+import SidebarItem from "../sidebar/sidebar-item";
 import PersonIcon from "@mui/icons-material/Person";
 import Modal from "../modal/modal";
 import { Typography } from "@mui/material";
@@ -8,7 +8,7 @@ type PlayerSideBarItemProps = {
   expanded: boolean;
 };
 
-export function PlayerSideBarItem({ expanded }: PlayerSideBarItemProps) {
+const PlayerSideBarItem = ({ expanded }: PlayerSideBarItemProps) => {
   const [modalOpen, openModal] = useState(false);
 
   return (
@@ -30,4 +30,6 @@ export function PlayerSideBarItem({ expanded }: PlayerSideBarItemProps) {
       />
     </>
   );
-}
+};
+
+export default PlayerSideBarItem;

@@ -5,16 +5,20 @@ type AttackCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;
 };
 
-export function AttackCommandHandler({
+const AttackCommandHandler = ({
   setCommandValid,
-}: AttackCommandHandlerProps) {
+}: AttackCommandHandlerProps) => {
   const target = useRef<string>(null);
   const weapon = useRef<string>(null);
 
-  function updateSelection(selection: string, items: string[], ref: MutableRefObject<string>){
+  function updateSelection(
+    selection: string,
+    items: string[],
+    ref: MutableRefObject<string>
+  ) {
     items.includes(selection)
-    ? (ref.current = selection)
-    : (ref.current = null);
+      ? (ref.current = selection)
+      : (ref.current = null);
 
     setCommandValid(Boolean(target.current && weapon.current));
   }
@@ -40,7 +44,9 @@ export function AttackCommandHandler({
         options={availableTargets}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Target" />}
-        onInputChange={(_, input) => updateSelection(input, availableTargets, target)}
+        onInputChange={(_, input) =>
+          updateSelection(input, availableTargets, target)
+        }
       />
       <Chip
         label="With"
@@ -54,8 +60,12 @@ export function AttackCommandHandler({
         options={availableWeapons}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Weapon" />}
-        onInputChange={(_, input) => updateSelection(input, availableWeapons, weapon)}
+        onInputChange={(_, input) =>
+          updateSelection(input, availableWeapons, weapon)
+        }
       />
     </Stack>
   );
-}
+};
+
+export default AttackCommandHandler;

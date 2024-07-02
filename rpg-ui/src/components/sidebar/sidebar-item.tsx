@@ -13,12 +13,12 @@ type SidebarItemProps = {
   onClick: () => void;
 };
 
-export function SidebarItem({
+const SidebarItem = ({
   text,
   icon,
   expanded: open,
   onClick,
-}: SidebarItemProps) {
+}: SidebarItemProps) => {
   return (
     <ListItem key={text} disablePadding sx={{ display: "block" }}>
       <ListItemButton
@@ -42,4 +42,6 @@ export function SidebarItem({
       </ListItemButton>
     </ListItem>
   );
-}
+};
+
+export default SidebarItem;

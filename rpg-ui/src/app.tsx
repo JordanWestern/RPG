@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { Main } from "./pages/Main";
+import Main from "./pages/Main";
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";

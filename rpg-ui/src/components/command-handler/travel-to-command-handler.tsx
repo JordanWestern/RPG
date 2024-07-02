@@ -4,9 +4,9 @@ type TravelToCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;
 };
 
-export function TravelToCommandHandler({
+const TravelToCommandHandler = ({
   setCommandValid,
-}: TravelToCommandHandlerProps) {
+}: TravelToCommandHandlerProps) => {
   const availableDestinations = [
     "Mountain Pass",
     "Dark Forest",
@@ -25,4 +25,6 @@ export function TravelToCommandHandler({
       }
     />
   );
-}
+};
+
+export default TravelToCommandHandler;

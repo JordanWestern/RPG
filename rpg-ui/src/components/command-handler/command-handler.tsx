@@ -1,11 +1,11 @@
 import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
 import { ReactElement, useState } from "react";
-import { TravelToCommandHandler } from "../command-handler/travel-to-command-handler";
-import { UseItemCommandHandler } from "../command-handler/use-item-command-handler";
-import { AttackCommandHandler } from "../command-handler/attack-command-handler";
+import TravelToCommandHandler from "../command-handler/travel-to-command-handler";
+import UseItemCommandHandler from "../command-handler/use-item-command-handler";
+import AttackCommandHandler from "../command-handler/attack-command-handler";
 import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
 
-export default function CommandHandler() {
+const CommandHandler = () => {
   const commands = ["Travel To", "Use Item", "Attack"];
 
   const [currentCommandHandler, setCommandHandler] =
@@ -46,4 +46,6 @@ export default function CommandHandler() {
       </IconButton>
     </Stack>
   );
-}
+};
+
+export default CommandHandler;

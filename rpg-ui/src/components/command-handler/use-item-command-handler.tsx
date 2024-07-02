@@ -4,9 +4,9 @@ type UseItemCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;
 };
 
-export function UseItemCommandHandler({
+const UseItemCommandHandler = ({
   setCommandValid,
-}: UseItemCommandHandlerProps) {
+}: UseItemCommandHandlerProps) => {
   const availableItems = [
     "Minor Potion",
     "Large Potion",
@@ -29,4 +29,6 @@ export function UseItemCommandHandler({
       }
     />
   );
-}
+};
+
+export default UseItemCommandHandler;

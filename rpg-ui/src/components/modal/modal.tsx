@@ -58,7 +58,7 @@ type ModalProps = {
   closeModal: () => void;
 };
 
-export default function Modal({ modalOpen, content, closeModal }: ModalProps) {
+const Modal = ({ modalOpen, content, closeModal }: ModalProps) => {
   return (
     <div>
       <MUIModal
@@ -82,4 +82,6 @@ export default function Modal({ modalOpen, content, closeModal }: ModalProps) {
       </MUIModal>
     </div>
   );
-}
+};
+
+export default Modal;
