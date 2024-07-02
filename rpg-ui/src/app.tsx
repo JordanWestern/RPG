@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { Home } from "./pages/home";
+import { Main } from "./pages/Main";
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
@@ -24,7 +24,7 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Home />
+      <Main />
     </ThemeProvider>
   </React.StrictMode>
 );

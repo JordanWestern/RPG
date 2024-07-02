@@ -22,7 +22,7 @@ const Spinner = () => (
   </Box>
 );
 
-export function Home() {
+export function Main() {
   const [apiReady, setApiReady] = useState(false);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ export function Home() {
         const response = await axios.get('http://localhost:5028/api/info/ready'); // Adjust the URL to match your API endpoint
         if (response.status === 200) {
           setApiReady(true);
+          clearInterval(intervalId); // Clear the interval once API is ready
         }
       } catch (error) {
         console.error('API is not ready:', error);
