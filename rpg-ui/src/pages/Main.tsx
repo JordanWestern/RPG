@@ -4,6 +4,7 @@ import LogTable from "../components/log-table/log-table";
 import CommandHandler from "../components/command-handler/command-handler";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import './Main.css'; // Import the CSS file for styling
 
 const Spinner = () => (
   <Box
@@ -12,7 +13,7 @@ const Spinner = () => (
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
       position: 'fixed',
       width: '100%',
       zIndex: 9999,
@@ -43,34 +44,33 @@ export function Main() {
     return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
-  if (!apiReady) {
-    return <Spinner />;
-  }
-  
   return (
-    <Grid container>
-      <Grid item xs={6}>
-        <Sidebar />
+    <div className={apiReady ? '' : 'blurred'}>
+      {!apiReady && <Spinner />}
+      <Grid container>
+        <Grid item xs={6}>
+          <Sidebar />
+        </Grid>
+        <Grid item xs={8} md={12}>
+          <Container>
+            <Stack>
+              <Typography variant="h1">
+                A very sexual, text-based adventure game.
+              </Typography>
+              <Chip
+                label="Alpha"
+                color="info"
+                variant="outlined"
+                sx={{ width: 60 }}
+              />
+            </Stack>
+            <Stack spacing={5} paddingTop={10}>
+              <LogTable />
+              <CommandHandler />
+            </Stack>
+          </Container>
+        </Grid>
       </Grid>
-      <Grid item xs={8} md={12}>
-        <Container>
-          <Stack>
-            <Typography variant="h1">
-              A very sexual, text-based adventure game.
-            </Typography>
-            <Chip
-              label="Alpha"
-              color="info"
-              variant="outlined"
-              sx={{ width: 60 }}
-            />
-          </Stack>
-          <Stack spacing={5} paddingTop={10}>
-            <LogTable />
-            <CommandHandler />
-          </Stack>
-        </Container>
-      </Grid>
-    </Grid>
+    </div>
   );
 }

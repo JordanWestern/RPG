@@ -1,0 +1,4 @@
+.blurred {
+    backdrop-filter: blur(5px);
+    pointer-events: none; /* Optional: to prevent interactions with the blurred content */
+  }
