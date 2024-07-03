@@ -8,10 +8,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const LogTable = () => {
   const [logs, setLogs] = useState([]);
+  const lastLogRef = useRef(null);
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
@@ -19,7 +20,7 @@ const LogTable = () => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on("ReceiveLog", (time, logMessage) => {
+    connection.on("GameEvent", (time, logMessage) => {
       setLogs((prevLogs) => [...prevLogs, { time, logMessage }]);
     });
 
@@ -31,6 +32,12 @@ const LogTable = () => {
       connection.stop();
     };
   }, []);
+
+  useEffect(() => {
+    if (lastLogRef.current) {
+      lastLogRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [logs]);
 
   return (
     <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>
@@ -48,7 +55,10 @@ const LogTable = () => {
         </TableHead>
         <TableBody>
           {logs.map((row, index) => (
-            <TableRow key={index}>
+            <TableRow
+              key={index}
+              ref={index === logs.length - 1 ? lastLogRef : null}
+            >
               <TableCell>{row.time}</TableCell>
               <TableCell>{row.logMessage}</TableCell>
             </TableRow>

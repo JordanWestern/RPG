@@ -32,7 +32,7 @@ const Main = () => {
                 sx={{ width: 60 }}
               />
             </Stack>
-            <Stack spacing={5} paddingTop={10}>
+            <Stack spacing={5} paddingTop={5}>
               <LogTable />
               <CommandHandler />
             </Stack>
