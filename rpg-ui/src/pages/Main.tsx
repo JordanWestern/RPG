@@ -3,14 +3,14 @@ import Sidebar from "../components/sidebar/sidebar";
 import LogTable from "../components/log-table/log-table";
 import CommandHandler from "../components/command-handler/command-handler";
 import { useState } from "react";
-import useCheckApiStatus from "../api/hooks/use-check-api-status";
+import checkApiStatus from "../api/utils/check-api-status";
 import Spinner from "../shared/spinner";
 import "./Main.css";
 
 const Main = () => {
   const [apiReady, setApiReady] = useState(false);
 
-  useCheckApiStatus(setApiReady);
+  checkApiStatus(setApiReady);
 
   return (
     <div className={apiReady ? "" : "blurred"}>

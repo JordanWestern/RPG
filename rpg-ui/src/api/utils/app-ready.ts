@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const useAppReady = async () => {
+const appReady = async () => {
     return await axios.get('http://localhost:5028/api/info/ready');
 }
 
-export default useAppReady;
+export default appReady;

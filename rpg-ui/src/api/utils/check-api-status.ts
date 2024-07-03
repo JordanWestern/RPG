@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import useAppReady from '../hooks/use-app-ready'
+import appReady from './app-ready'
 
-const useCheckApiStatus = (setApiReady : (ready : boolean) => void) => {
+const checkApiStatus = (setApiReady : (ready : boolean) => void) => {
     useEffect(() => {
         const checkApiStatus = async () => {
           try {
-            const response = await useAppReady();
+            const response = await appReady();
             if (response.status === 200) {
                 setApiReady(true);
                 clearInterval(intervalId);
@@ -21,4 +21,4 @@ const useCheckApiStatus = (setApiReady : (ready : boolean) => void) => {
       }, []);
 }
 
-export default useCheckApiStatus;
+export default checkApiStatus;
