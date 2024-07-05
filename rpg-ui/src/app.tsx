@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import Main from "./pages/Main";
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
-import { createTheme } from "@mui/material";
+import { CssBaseline, createTheme } from "@mui/material";
+import AppRouter from "./router/app-router";
 
 // https://zenoo.github.io/mui-theme-creator/
 const theme = createTheme({
@@ -24,7 +24,8 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Main />
+      <CssBaseline />
+      <AppRouter />
     </ThemeProvider>
   </React.StrictMode>
 );

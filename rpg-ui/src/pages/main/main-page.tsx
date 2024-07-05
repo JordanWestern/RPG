@@ -1,13 +1,13 @@
 import { Box, Chip, Container, Grid, Stack, Typography } from "@mui/material";
-import Sidebar from "../components/sidebar/sidebar";
-import LogTable from "../components/log-table/log-table";
-import CommandHandler from "../components/command-handler/command-handler";
+import Sidebar from "../../components/sidebar/sidebar";
+import LogTable from "../../components/log-table/log-table";
+import CommandHandler from "../../components/command-handler/command-handler";
 import { useState } from "react";
-import checkApiStatus from "../api/utils/check-api-status";
-import Spinner from "../shared/spinner";
-import "./Main.css";
+import checkApiStatus from "../../api/utils/check-api-status";
+import Spinner from "../../shared/spinner";
+import "./main-page.css";
 
-const Main = () => {
+const MainPage = () => {
   const [apiReady, setApiReady] = useState(false);
 
   checkApiStatus(setApiReady);
@@ -45,4 +45,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainPage;
