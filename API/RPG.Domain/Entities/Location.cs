@@ -8,7 +8,7 @@ public class Location
         Name = name;
         Description = description;
         Connections = connections;
-        IsStart = isStart;
+        IsPlayerHere = isStart;
     }
 
     public Guid Id { get; }
@@ -19,7 +19,18 @@ public class Location
 
     public IReadOnlyList<Guid> Connections { get; }
     
-    public bool IsStart { get; }
+    public bool IsPlayerHere { get; }
 
-    public static Location Create(string name, string description, List<Guid> connections, bool isStart) => new(Guid.NewGuid(), name, description, connections, isStart);
+    public static Location Create(string name, string description, List<Guid> connections, bool isStart)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
+        ArgumentException.ThrowIfNullOrWhiteSpace(description, nameof(description));
+
+        if (connections is null || connections.Count == 0)
+        {
+            throw new ArgumentException("Location connections must not be null or empty", nameof(connections));
+        }
+
+        return new(Guid.NewGuid(), name, description, connections, isStart);
+    }
 }

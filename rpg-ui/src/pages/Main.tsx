@@ -1,4 +1,4 @@
-import { Chip, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Chip, Container, Grid, Stack, Typography } from "@mui/material";
 import Sidebar from "../components/sidebar/sidebar";
 import LogTable from "../components/log-table/log-table";
 import CommandHandler from "../components/command-handler/command-handler";
@@ -22,9 +22,11 @@ const Main = () => {
         <Grid item xs={8} md={12}>
           <Container>
             <Stack>
-              <Typography variant="h1">
-                A very sexual, text-based adventure game.
-              </Typography>
+              <Box paddingBottom={2}>
+                <Typography variant="h1">
+                  A very sexual, text-based adventure game.
+                </Typography>
+              </Box>
               <Chip
                 label="Alpha"
                 color="info"

@@ -12,5 +12,15 @@ public class Map
 
     public IReadOnlyList<Location> Locations { get; }
 
-    public static Map Create(string name, List<Location> locations) => new(name, locations);
+    public static Map Create(string name, List<Location> locations) 
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
+
+        if (locations is null || locations.Count == 0)
+        {
+            throw new ArgumentException("Map locations must not be null or empty", nameof(locations));
+        }
+
+        return new Map(name, locations);
+    }
 }

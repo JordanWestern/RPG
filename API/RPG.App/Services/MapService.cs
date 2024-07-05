@@ -18,6 +18,6 @@ internal class MapService : IMapService
             
         return new Map(entity.Name,
             entity.Locations.Select(location => new Location(location.Id, location.Name, location.Description,
-                location.Connections, location.IsStart)).ToList());
+                location.Connections, location.IsPlayerHere)).ToList());
     }
 }
