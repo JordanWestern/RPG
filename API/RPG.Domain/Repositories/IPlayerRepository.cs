@@ -4,7 +4,7 @@ namespace RPG.Domain.Repositories;
 
 public interface IPlayerRepository
 {
-    void SaveNewPlayer(Player player);
+    Task SaveNewPlayer(Player player, CancellationToken cancellationToken);
 
     bool HasExistingPlayers();
     

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RPG.App\RPG.App.csproj" />
+    <ProjectReference Include="..\RPG.Infrastructure\RPG.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

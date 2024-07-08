@@ -4,27 +4,20 @@ using RPG.Domain.Repositories;
 
 namespace RPG.App.Services;
 
-public class PlayerService : IPlayerService
+public class PlayerService(IPlayerRepository repository) : IPlayerService
 {
-    private readonly IPlayerRepository _repository;
-
-    public PlayerService(IPlayerRepository repository)
-    {
-        _repository = repository;
-    }
-
-    public ExistingPlayer CreateNewPlayer(NewPlayer newPlayer)
+    public async Task<ExistingPlayer> CreateNewPlayer(NewPlayer newPlayer, CancellationToken cancellationToken)
     {
         var entity = Player.Create(newPlayer.Name);
-        _repository.SaveNewPlayer(entity);
+        await repository.SaveNewPlayer(entity, cancellationToken);
         return new ExistingPlayer(entity.Id, entity.Name);
     }
 
-    public bool HasExistingPlayers() => _repository.HasExistingPlayers();
+    public bool HasExistingPlayers() => repository.HasExistingPlayers();
     
     public IEnumerable<ExistingPlayer> GetExistingPlayers()
     {
-        var entities = _repository.GetExistingPlayers();
+        var entities = repository.GetExistingPlayers();
         return entities.Select(entity => new ExistingPlayer(entity.Id, entity.Name));
     }
 }

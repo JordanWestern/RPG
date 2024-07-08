@@ -4,19 +4,15 @@ using RPG.Infrastructure.DbContexts;
 
 namespace RPG.Infrastructure.Repositories;
 
-public class PlayerRepository : IPlayerRepository
+public class PlayerRepository(PlayerDbContext context) : IPlayerRepository
 {
-    private readonly PlayerDbContext _context;
+    private readonly PlayerDbContext _context = context;
 
-    public PlayerRepository(PlayerDbContext context)
-    {
-        _context = context;
-    }
-    
-    public void SaveNewPlayer(Player player)
+    public Task SaveNewPlayer(Player player, CancellationToken cancellationToken)
     {
         _context.Players.Add(player);
-        _context.SaveChanges();
+        _context.SaveChangesAsync(cancellationToken);
+        return Task.CompletedTask;
     }
 
     public bool HasExistingPlayers() => _context.Players.Any();
