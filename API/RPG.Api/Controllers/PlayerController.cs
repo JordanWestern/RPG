@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RPG.App.Contracts;
 using RPG.App.Services;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,8 +18,13 @@ public class PlayerController(IPlayerService playerService) : ControllerBase
     //}
 
     [HttpPost()]
-    public async Task<IActionResult> PostAsync([FromBody] NewPlayer newPlayer, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromBody][Required] NewPlayer newPlayer, CancellationToken cancellationToken)
     {
+        if (!newPlayer.IsValid())
+        {
+            return BadRequest(newPlayer.Name);
+        }
+
         var player = await playerService.CreateNewPlayer(newPlayer, cancellationToken);
         return Created(new Uri($"api/player/{player.Id}", UriKind.Relative), player);
     }

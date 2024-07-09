@@ -1,8 +1,8 @@
+using RPG.App;
 using RPG.App.Events;
 using RPG.App.Services;
-using RPG.Domain.Repositories;
-using RPG.Infrastructure.DbContexts;
-using RPG.Infrastructure.Repositories;
+using RPG.Domain.Entities;
+using RPG.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,9 +27,9 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddTransient<IGuidProvider, GuidProvider>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
-builder.Services.AddDbContext<PlayerDbContext>();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 
