@@ -1,9 +1,13 @@
-﻿namespace RPG.Domain.Entities;
+﻿using RPG.Domain.Factories;
+
+namespace RPG.Domain.Entities;
 
 public class Player
 {
     private Player(Guid id, string name)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
         Id = id;
         Name = name;
     }
@@ -12,9 +16,8 @@ public class Player
 
     public string Name { get; }
 
-    public static Player Create(IGuidProvider guidProvider, string name)
+    public class PlayerFactory(IGuidFactory guidProvider) : IPlayerFactory
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        return new Player(guidProvider.NewGuid, name);
+        public Player Create(string name) => new(guidProvider.NewGuid, name);
     }
 }

@@ -18,7 +18,7 @@ public class PlayerController(IPlayerService playerService) : ControllerBase
     //}
 
     [HttpPost()]
-    public async Task<IActionResult> PostAsync([FromBody][Required] NewPlayer newPlayer, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreatePlayer([FromBody][Required] NewPlayer newPlayer, CancellationToken cancellationToken)
     {
         if (!newPlayer.IsValid())
         {
