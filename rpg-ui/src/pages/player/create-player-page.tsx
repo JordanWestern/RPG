@@ -9,15 +9,16 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../shared/spinner";
 import checkApiStatus from "../../api/utils/info/check-api-status";
 import {
   createNewPlayer,
   existingPlayer,
+  getExistingPlayers,
   newPlayer,
-} from "../../api/utils/player/create-new-player";
+} from "../../api/utils/player/player-api";
 import "./create-player-page.css";
 
 const CreatePlayerPage = () => {
@@ -30,6 +31,18 @@ const CreatePlayerPage = () => {
   const navigate = useNavigate();
 
   checkApiStatus(setApiReady);
+
+  useEffect(() => {
+    const fetchExistingPlayers = async () => {
+      const players = await getExistingPlayers();
+      setExistingPlayers(players);
+      if (players.length > 0) {
+        setSelectedPlayer(players[0]);
+      }
+    };
+
+    fetchExistingPlayers();
+  }, []);
 
   const handleCreatePlayer = async () => {
     const newPlayer: newPlayer = { name: playerName.current };

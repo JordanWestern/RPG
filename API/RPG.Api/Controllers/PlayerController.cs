@@ -11,11 +11,9 @@ namespace RPG.Api.Controllers;
 [ApiController]
 public class PlayerController(IPlayerService playerService) : ControllerBase
 {
-    //[HttpGet(Name = "playerId")]
-    //public IActionResult Get([FromRoute] Guid playerId, CancellationToken cancellationToken)
-    //{
-    //    playerService.GetExistingPlayer(playerId, cancellationToken);
-    //}
+    [HttpGet]
+    public IActionResult GeteExistingPlayers(CancellationToken cancellationToken) => 
+        Ok(playerService.GetExistingPlayers(cancellationToken));
 
     [HttpPost()]
     public async Task<IActionResult> CreatePlayer([FromBody][Required] NewPlayer newPlayer, CancellationToken cancellationToken)

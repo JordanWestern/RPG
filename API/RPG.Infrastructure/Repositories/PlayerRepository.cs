@@ -15,7 +15,6 @@ public class PlayerRepository(PlayerDbContext context) : IPlayerRepository
         return Task.CompletedTask;
     }
 
-    public bool HasExistingPlayers() => _context.Players.Any();
-    
-    public IEnumerable<Player> GetExistingPlayers() => _context.Players;
+    public IAsyncEnumerable<Player> GetExistingPlayers(CancellationToken cancellationToken) =>
+        _context.Players.AsAsyncEnumerable();
 }

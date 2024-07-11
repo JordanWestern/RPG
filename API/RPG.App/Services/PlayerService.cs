@@ -12,12 +12,9 @@ public class PlayerService(IPlayerRepository repository, IPlayerFactory playerFa
         await repository.SaveNewPlayer(entity, cancellationToken);
         return new ExistingPlayer(entity.Id, entity.Name);
     }
-
-    public bool HasExistingPlayers() => repository.HasExistingPlayers();
     
-    public IEnumerable<ExistingPlayer> GetExistingPlayers()
-    {
-        var entities = repository.GetExistingPlayers();
-        return entities.Select(entity => new ExistingPlayer(entity.Id, entity.Name));
-    }
+    public IAsyncEnumerable<ExistingPlayer> GetExistingPlayers(CancellationToken cancellationToken) =>
+        repository.GetExistingPlayers(cancellationToken)
+        .Select(entity => new ExistingPlayer(entity.Id, entity.Name));
+ 
 }

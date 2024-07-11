@@ -13,3 +13,8 @@ export type existingPlayer = {
     const response = await axios.post<existingPlayer>('http://localhost:5028/api/player', newPlayer);
     return response.data;
   };
+
+  export const getExistingPlayers = async () => {
+    const response = await axios.get<existingPlayer[]>('http://localhost:5028/api/player');
+    return response.data;
+  }
