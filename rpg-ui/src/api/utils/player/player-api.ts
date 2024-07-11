@@ -10,11 +10,11 @@ export type existingPlayer = {
   };
 
   export const createNewPlayer = async (newPlayer: newPlayer) => {
-    const response = await axios.post<existingPlayer>('http://localhost:5028/api/player', newPlayer);
+    const response = await axios.post<existingPlayer>('http://localhost:5028/api/players', newPlayer);
     return response.data;
   };
 
   export const getExistingPlayers = async () => {
-    const response = await axios.get<existingPlayer[]>('http://localhost:5028/api/player');
+    const response = await axios.get<existingPlayer[]>('http://localhost:5028/api/players');
     return response.data;
   }

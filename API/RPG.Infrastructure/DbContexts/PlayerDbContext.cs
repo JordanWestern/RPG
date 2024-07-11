@@ -3,11 +3,9 @@ using RPG.Domain.Entities;
 
 namespace RPG.Infrastructure.DbContexts;
 
-public class PlayerDbContext : DbContext
+public class PlayerDbContext(DbContextOptions<PlayerDbContext> options) : DbContext(options)
 {
     public DbSet<Player> Players { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseInMemoryDatabase("Players");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

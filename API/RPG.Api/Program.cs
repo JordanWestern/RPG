@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RPG.App;
 using RPG.App.Events;
 using RPG.App.Services;
@@ -18,7 +19,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IGuidFactory, GuidFactory>();
 builder.Services.AddTransient<IPlayerFactory, PlayerFactory>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
-builder.Services.AddDbContext<PlayerDbContext>();
+builder.Services.AddDbContext<PlayerDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase("Players"));
 
 builder.Services.AddCors(options =>
 {

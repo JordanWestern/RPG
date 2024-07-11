@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RPG.Api.Controllers;
 
-[Route("api/player")]
+[Route("api/players")]
 [ApiController]
-public class PlayerController(IPlayerService playerService) : ControllerBase
+public class PlayersController(IPlayerService playerService) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GeteExistingPlayers(CancellationToken cancellationToken) => 
+    public IActionResult GetExistingPlayers(CancellationToken cancellationToken) => 
         Ok(playerService.GetExistingPlayers(cancellationToken));
 
     [HttpPost()]

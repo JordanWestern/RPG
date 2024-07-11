@@ -10,11 +10,7 @@ namespace RPG.Tests.RPG.Api.PlayerController;
 
 public class CreatePlayerTests : ApiTestFixture
 {
-    private readonly CancellationTokenSource tokenSource = new();
-
     private readonly TestGuidFactory guidProvider;
-
-    private const string Endpoint = "api/player";
 
     public CreatePlayerTests()
     {
@@ -28,7 +24,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerIsNull()
     {
         // Act
-        var result = await Client.PostAsJsonAsync(Endpoint, (NewPlayer)null!, tokenSource.Token);
+        var result = await Client.PostAsJsonAsync(PlayersUri, (NewPlayer)null!, TokenSource.Token);
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -44,7 +40,7 @@ public class CreatePlayerTests : ApiTestFixture
         var newPlayer = new NewPlayer(name);
 
         // Act
-        var result = await Client.PostAsJsonAsync(Endpoint, newPlayer, tokenSource.Token);
+        var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -59,7 +55,7 @@ public class CreatePlayerTests : ApiTestFixture
         var expected = new ExistingPlayer(guidProvider.NewGuid, Name);
 
         // Act
-        var result = await Client.PostAsJsonAsync(Endpoint, newPlayer, tokenSource.Token);
+        var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
         using var scope = new AssertionScope();
