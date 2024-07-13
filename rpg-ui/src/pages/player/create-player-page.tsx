@@ -19,9 +19,12 @@ import {
   newPlayer,
 } from "../../api/utils/player/player-api";
 import "./create-player-page.css";
-import React from "react";
 
-const CreatePlayerPage = () => {
+type CreatePlayerPageProps = {
+  setCurrentPage: () => void;
+};
+
+const CreatePlayerPage = ({ setCurrentPage }: CreatePlayerPageProps) => {
   const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]); // TODO: Fetch from api bruh.
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(
@@ -52,8 +55,6 @@ const CreatePlayerPage = () => {
     ]);
     setSelectedPlayer(createdPlayer);
   };
-
-  const onStartClick = () => {};
 
   return (
     <div className={apiReady ? "" : "blurred"}>
@@ -99,7 +100,7 @@ const CreatePlayerPage = () => {
                     ))}
                   </Select>
                 </FormControl>
-                <Button variant="outlined" onClick={onStartClick}>
+                <Button variant="outlined" onClick={setCurrentPage}>
                   Start
                 </Button>
               </>

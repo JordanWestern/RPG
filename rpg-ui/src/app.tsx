@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, createTheme } from "@mui/material";
-import MainPage from "./pages/main/main-page";
+import MainPage from "./pages/Main/main-page";
 
 // https://zenoo.github.io/mui-theme-creator/
 const theme = createTheme({
