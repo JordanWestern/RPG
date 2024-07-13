@@ -10,7 +10,6 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Spinner from "../../shared/spinner";
 import checkApiStatus from "../../api/utils/info/check-api-status";
 import {
@@ -20,6 +19,7 @@ import {
   newPlayer,
 } from "../../api/utils/player/player-api";
 import "./create-player-page.css";
+import React from "react";
 
 const CreatePlayerPage = () => {
   const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]); // TODO: Fetch from api bruh.
@@ -28,7 +28,6 @@ const CreatePlayerPage = () => {
     null
   );
   const playerName = useRef("Grognak the barbarian");
-  const navigate = useNavigate();
 
   checkApiStatus(setApiReady);
 
@@ -54,9 +53,7 @@ const CreatePlayerPage = () => {
     setSelectedPlayer(createdPlayer);
   };
 
-  const onStartClick = () => {
-    navigate("/main", { state: { player: selectedPlayer } });
-  };
+  const onStartClick = () => {};
 
   return (
     <div className={apiReady ? "" : "blurred"}>
@@ -88,7 +85,7 @@ const CreatePlayerPage = () => {
                       setSelectedPlayer(
                         existingPlayers.find(
                           (player) => (player.name = e.target.value)
-                        )
+                        )!
                       )
                     }
                   >
