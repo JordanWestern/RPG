@@ -1,24 +1,30 @@
 import { Grid } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Sidebar from "../../components/sidebar/sidebar";
 import CreatePlayerPage from "../player/create-player-page";
 import AdventurePage from "../adventure/adventure-page";
+import { existingPlayer } from "../../api/utils/player/player-api";
 
 const MainPage = () => {
+  const player = useRef<existingPlayer | null>(null);
+
+  const continueWithPlayer = (existingPlayer: existingPlayer) => {
+    player.current = existingPlayer;
+    setCurrentPage(<AdventurePage existingPlayer={player.current} />);
+  };
+
   const [currentPage, setCurrentPage] = useState(
-    <CreatePlayerPage
-      setCurrentPage={() => setCurrentPage(<AdventurePage />)}
-    />
+    <CreatePlayerPage continueWithPlayer={continueWithPlayer} />
   );
 
   return (
     <Grid container>
-      {currentPage.type !== CreatePlayerPage ? (
+      {player.current && (
         <Grid item>
           <Sidebar />
         </Grid>
-      ) : null}
+      )}
       <Grid flexGrow={1} padding={5}>
         {currentPage}
       </Grid>

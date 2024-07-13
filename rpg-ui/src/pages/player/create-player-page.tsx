@@ -21,10 +21,10 @@ import {
 import "./create-player-page.css";
 
 type CreatePlayerPageProps = {
-  setCurrentPage: () => void;
+  continueWithPlayer: (selectedPlayer: existingPlayer) => void;
 };
 
-const CreatePlayerPage = ({ setCurrentPage }: CreatePlayerPageProps) => {
+const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]); // TODO: Fetch from api bruh.
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(
@@ -100,7 +100,10 @@ const CreatePlayerPage = ({ setCurrentPage }: CreatePlayerPageProps) => {
                     ))}
                   </Select>
                 </FormControl>
-                <Button variant="outlined" onClick={setCurrentPage}>
+                <Button
+                  variant="outlined"
+                  onClick={() => continueWithPlayer(selectedPlayer)}
+                >
                   Start
                 </Button>
               </>

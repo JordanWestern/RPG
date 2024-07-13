@@ -9,7 +9,7 @@ const PlayerSideBarItem = ({ expanded }: PlayerSideBarItemProps) => {
   return (
     <>
       <SidebarItem
-        text="Player"
+        text="Player Stats"
         icon={<PersonIcon />}
         expanded={expanded}
         onClick={() => {}}
