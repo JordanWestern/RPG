@@ -22,7 +22,10 @@ const MainPage = () => {
     <Grid container>
       {player.current && (
         <Grid item>
-          <Sidebar />
+          <Sidebar
+            existingPlayer={player.current}
+            setCurrentPage={setCurrentPage}
+          />
         </Grid>
       )}
       <Grid flexGrow={1} padding={5}>

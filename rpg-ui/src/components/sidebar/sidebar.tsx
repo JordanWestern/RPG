@@ -12,6 +12,7 @@ import { useState } from "react";
 import WorkIcon from "@mui/icons-material/Work";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { existingPlayer } from "src/api/utils/player/player-api";
 
 const drawerWidth = 240;
 
@@ -62,7 +63,15 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Sidebar() {
+type SidebarProps = {
+  existingPlayer: existingPlayer;
+  setCurrentPage: (page: JSX.Element) => void;
+};
+
+export default function Sidebar({
+  existingPlayer,
+  setCurrentPage,
+}: SidebarProps) {
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
