@@ -1,20 +1,23 @@
-﻿using RPG.Domain.Entities;
+﻿using MediatR;
+using RPG.Domain.Entities;
 using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
 
 namespace RPG.Infrastructure.Repositories;
 
-public class PlayerRepository(PlayerDbContext context) : IPlayerRepository
+public class PlayerRepository(PlayerDbContext context, IMediator mediator) : IPlayerRepository
 {
-    private readonly PlayerDbContext _context = context;
-
-    public Task SaveNewPlayer(Player player, CancellationToken cancellationToken)
+    public async Task SaveNewPlayer(Player player, CancellationToken cancellationToken)
     {
-        _context.Players.Add(player);
-        _context.SaveChangesAsync(cancellationToken);
-        return Task.CompletedTask;
+        context.Players.Add(player);
+        await context.SaveChangesAsync(cancellationToken);
+
+        foreach (var domainEvent in player.DomainEvents)
+        {
+            await mediator.Publish(domainEvent, cancellationToken);
+        }
     }
 
     public IAsyncEnumerable<Player> GetExistingPlayers(CancellationToken cancellationToken) =>
-        _context.Players.AsAsyncEnumerable();
+        context.Players.AsAsyncEnumerable();
 }

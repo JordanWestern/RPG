@@ -12,7 +12,7 @@ import { useState } from "react";
 import WorkIcon from "@mui/icons-material/Work";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import { existingPlayer } from "src/api/utils/player/player-api";
+import { existingPlayer } from "../../api/utils/player/player-api";
 
 const drawerWidth = 240;
 

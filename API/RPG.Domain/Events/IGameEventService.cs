@@ -1,4 +1,4 @@
-﻿namespace RPG.App.Events;
+﻿namespace RPG.Domain.Events;
 
 public interface IGameEventService
 {

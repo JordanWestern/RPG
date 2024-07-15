@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using RPG.Domain.Events;
 
-namespace RPG.App.Events;
+namespace RPG.Infrastructure.Events;
 
 public class GameEventService(IHubContext<GameEventHub> hubContext) : IGameEventService
 {

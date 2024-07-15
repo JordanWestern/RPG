@@ -9,10 +9,24 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
+import { gameLog, getGameLogs } from "../../api/game-logs/game-logs-api";
 
-const LogTable = () => {
-  const [logs, setLogs] = useState([]);
+type LogTableProps = {
+  playerId: string;
+};
+
+const LogTable = ({ playerId }: LogTableProps) => {
+  const [logs, setLogs] = useState<gameLog[]>([]);
   const lastLogRef = useRef(null);
+
+  useEffect(() => {
+    const fetchGameLogs = async () => {
+      const logs = await getGameLogs(playerId);
+      setLogs(logs);
+    };
+
+    fetchGameLogs();
+  }, []);
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
@@ -20,8 +34,8 @@ const LogTable = () => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on("GameEvent", (time, logMessage) => {
-      setLogs((prevLogs) => [...prevLogs, { time, logMessage }]);
+    connection.on("GameEvent", (gamelog: gameLog) => {
+      setLogs((prevLogs) => [...prevLogs, gamelog]);
     });
 
     connection
@@ -56,10 +70,10 @@ const LogTable = () => {
         <TableBody>
           {logs.map((row, index) => (
             <TableRow
-              key={index}
+              key={row.id}
               ref={index === logs.length - 1 ? lastLogRef : null}
             >
-              <TableCell>{row.time}</TableCell>
+              <TableCell>{row.date}</TableCell>
               <TableCell>{row.logMessage}</TableCell>
             </TableRow>
           ))}

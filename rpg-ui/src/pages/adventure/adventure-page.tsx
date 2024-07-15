@@ -25,7 +25,7 @@ const AdventurePage = ({ existingPlayer }: AdventurePageProps) => {
         />
       </Stack>
       <Stack spacing={5} paddingTop={5}>
-        <LogTable />
+        <LogTable playerId={existingPlayer.id} />
         <CommandHandler />
       </Stack>
     </>
