@@ -10,6 +10,6 @@ public class PlayerCreatedEventHandler(IGameLogFactory gameLogFactory, IGameLogR
     {
         var log = gameLogFactory.Create(@event.Player.Id, $"Player was created. Id: {@event.Player.Id} Name: {@event.Player.Name}");
         await gameLogRepository.CreateLog(log, cancellationToken);
-        await gameEventService.EmitGameEvent(log.LogMessage, cancellationToken);
+        await gameEventService.EmitGameEvent(log, cancellationToken);
     }
 }

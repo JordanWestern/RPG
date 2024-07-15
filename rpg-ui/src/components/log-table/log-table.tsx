@@ -34,8 +34,11 @@ const LogTable = ({ playerId }: LogTableProps) => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on("GameEvent", (gamelog: gameLog) => {
-      setLogs((prevLogs) => [...prevLogs, gamelog]);
+    connection.on("GameEvent", (gameLog: gameLog) => {
+      setLogs((prevLogs) => [
+        ...prevLogs,
+        { id: gameLog.id, date: gameLog.date, logMessage: gameLog.logMessage },
+      ]);
     });
 
     connection
@@ -70,7 +73,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
         <TableBody>
           {logs.map((row, index) => (
             <TableRow
-              key={row.id}
+              key={index}
               ref={index === logs.length - 1 ? lastLogRef : null}
             >
               <TableCell>{row.date}</TableCell>

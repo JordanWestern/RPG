@@ -1,6 +1,8 @@
-﻿namespace RPG.Domain.Events;
+﻿using RPG.Domain.Entities;
+
+namespace RPG.Domain.Events;
 
 public interface IGameEventService
 {
-    Task EmitGameEvent(string message, CancellationToken cancellationToken);
+    Task EmitGameEvent(GameLog log, CancellationToken cancellationToken);
 }
