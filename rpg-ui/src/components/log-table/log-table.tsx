@@ -52,7 +52,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
     if (lastLogRef.current) {
       lastLogRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [logs]);
+  }, []);
 
   return (
     <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>

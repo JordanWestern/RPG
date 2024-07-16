@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using RPG.App;
 using RPG.App.Services;
 using RPG.Domain.Events;
@@ -8,7 +7,6 @@ using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
 using RPG.Infrastructure.Events;
 using RPG.Infrastructure.Repositories;
-using System;
 using static RPG.Domain.Entities.GameLog;
 using static RPG.Domain.Entities.Player;
 
@@ -57,6 +55,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowElectronApp");
+
 app.UseAuthorization();
 
 app.MapHub<GameEventHub>("/gameEventHub")
