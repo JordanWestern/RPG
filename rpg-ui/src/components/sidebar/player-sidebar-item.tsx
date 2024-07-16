@@ -12,7 +12,9 @@ const PlayerSideBarItem = ({ expanded }: PlayerSideBarItemProps) => {
         text="Player Stats"
         icon={<PersonIcon />}
         expanded={expanded}
-        onClick={() => {}}
+        onClick={() => {
+          console.log("clicked");
+        }}
       />
     </>
   );

@@ -26,7 +26,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
     };
 
     fetchGameLogs();
-  }, []);
+  }, [playerId]);
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()

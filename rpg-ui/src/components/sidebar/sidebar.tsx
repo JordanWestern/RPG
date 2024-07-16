@@ -97,19 +97,25 @@ export default function Sidebar({
             text="Inventory"
             icon={<WorkIcon />}
             expanded={open}
-            onClick={() => {}}
+            onClick={() => {
+              console.log("clicked");
+            }}
           />
           <SidebarItem
             text="Map"
             icon={<LocationOnIcon />}
             expanded={open}
-            onClick={() => {}}
+            onClick={() => {
+              console.log("clicked");
+            }}
           />
           <SidebarItem
             text="Journal"
             icon={<MenuBookIcon />}
             expanded={open}
-            onClick={() => {}}
+            onClick={() => {
+              console.log("clicked");
+            }}
           />
         </List>
       </Drawer>

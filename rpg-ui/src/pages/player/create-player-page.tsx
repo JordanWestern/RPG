@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import Spinner from "../../shared/spinner";
-import checkApiStatus from "../../api/utils/info/check-api-status";
+import useCheckApiStatus from "../../api/utils/info/check-api-status";
 import {
   createNewPlayer,
   existingPlayer,
@@ -28,11 +28,11 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]); // TODO: Fetch from api bruh.
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(
-    null
+    null,
   );
   const playerName = useRef("Grognak the barbarian");
 
-  checkApiStatus(setApiReady);
+  useCheckApiStatus(setApiReady);
 
   useEffect(() => {
     const fetchExistingPlayers = async () => {
@@ -86,7 +86,7 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
                       setSelectedPlayer(
                         existingPlayers.find(
                           (player) => (player.name = e.target.value)
-                        )!
+                        )
                       )
                     }
                   >
