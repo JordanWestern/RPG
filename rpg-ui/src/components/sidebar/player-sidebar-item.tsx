@@ -1,5 +1,5 @@
-import SidebarItem from "../sidebar/sidebar-item";
-import PersonIcon from "@mui/icons-material/Person";
+import SidebarItem from '../sidebar/sidebar-item';
+import PersonIcon from '@mui/icons-material/Person';
 
 type PlayerSideBarItemProps = {
   expanded: boolean;
@@ -13,7 +13,7 @@ const PlayerSideBarItem = ({ expanded }: PlayerSideBarItemProps) => {
         icon={<PersonIcon />}
         expanded={expanded}
         onClick={() => {
-          console.log("clicked");
+          console.log('clicked');
         }}
       />
     </>

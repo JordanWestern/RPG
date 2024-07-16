@@ -1,10 +1,10 @@
-import { Grid } from "@mui/material";
-import { useRef, useState } from "react";
+import { Grid } from '@mui/material';
+import { useRef, useState } from 'react';
 
-import Sidebar from "../../components/sidebar/sidebar";
-import CreatePlayerPage from "../player/create-player-page";
-import AdventurePage from "../adventure/adventure-page";
-import { existingPlayer } from "../../api/utils/player/player-api";
+import Sidebar from '../../components/sidebar/sidebar';
+import CreatePlayerPage from '../player/create-player-page';
+import AdventurePage from '../adventure/adventure-page';
+import { existingPlayer } from '../../api/utils/player/player-api';
 
 const MainPage = () => {
   const player = useRef<existingPlayer | null>(null);
@@ -22,10 +22,7 @@ const MainPage = () => {
     <Grid container>
       {player.current && (
         <Grid item>
-          <Sidebar
-            existingPlayer={player.current}
-            setCurrentPage={setCurrentPage}
-          />
+          <Sidebar existingPlayer={player.current} setCurrentPage={setCurrentPage} />
         </Grid>
       )}
       <Grid flexGrow={1} padding={5}>

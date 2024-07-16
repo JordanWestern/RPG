@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import appReady from "./app-ready";
+import { useEffect } from 'react';
+import appReady from './app-ready';
 
 const useCheckApiStatus = (setApiReady: (ready: boolean) => void) => {
   useEffect(() => {
@@ -11,7 +11,7 @@ const useCheckApiStatus = (setApiReady: (ready: boolean) => void) => {
           clearInterval(intervalId);
         }
       } catch (error) {
-        console.error("API is not ready:", error);
+        console.error('API is not ready:', error);
       }
     };
 

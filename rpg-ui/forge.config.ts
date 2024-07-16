@@ -13,7 +13,7 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
+    asar: true
   },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
@@ -30,11 +30,11 @@ const config: ForgeConfig = {
             js: './src/renderer.ts',
             name: 'main_window',
             preload: {
-              js: './src/preload.ts',
-            },
-          },
-        ],
-      },
+              js: './src/preload.ts'
+            }
+          }
+        ]
+      }
     }),
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
@@ -45,9 +45,9 @@ const config: ForgeConfig = {
       [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
       [FuseV1Options.EnableNodeCliInspectArguments]: false,
       [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
-      [FuseV1Options.OnlyLoadAppFromAsar]: true,
-    }),
-  ],
+      [FuseV1Options.OnlyLoadAppFromAsar]: true
+    })
+  ]
 };
 
 export default config;

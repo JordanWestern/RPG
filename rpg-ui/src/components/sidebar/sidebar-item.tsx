@@ -1,10 +1,5 @@
-import {
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import { ReactElement } from "react";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { ReactElement } from 'react';
 
 type SidebarItemProps = {
   text: string;
@@ -13,29 +8,22 @@ type SidebarItemProps = {
   onClick: () => void;
 };
 
-const SidebarItem = ({
-  text,
-  icon,
-  expanded: open,
-  onClick,
-}: SidebarItemProps) => {
+const SidebarItem = ({ text, icon, expanded: open, onClick }: SidebarItemProps) => {
   return (
-    <ListItem key={text} disablePadding sx={{ display: "block" }}>
+    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
       <ListItemButton
         sx={{
           minHeight: 48,
-          justifyContent: open ? "initial" : "center",
-          px: 2.5,
+          justifyContent: open ? 'initial' : 'center',
+          px: 2.5
         }}
-        onClick={onClick}
-      >
+        onClick={onClick}>
         <ListItemIcon
           sx={{
             minWidth: 0,
-            mr: open ? 3 : "auto",
-            justifyContent: "center",
-          }}
-        >
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center'
+          }}>
           {icon}
         </ListItemIcon>
         <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />

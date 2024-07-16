@@ -1,17 +1,11 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField } from '@mui/material';
 
 type TravelToCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;
 };
 
-const TravelToCommandHandler = ({
-  setCommandValid,
-}: TravelToCommandHandlerProps) => {
-  const availableDestinations = [
-    "Mountain Pass",
-    "Dark Forest",
-    "Elven Temple",
-  ];
+const TravelToCommandHandler = ({ setCommandValid }: TravelToCommandHandlerProps) => {
+  const availableDestinations = ['Mountain Pass', 'Dark Forest', 'Elven Temple'];
 
   return (
     <Autocomplete
@@ -20,9 +14,7 @@ const TravelToCommandHandler = ({
       options={availableDestinations}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Destination" />}
-      onInputChange={(_, input) =>
-        setCommandValid(availableDestinations.includes(input))
-      }
+      onInputChange={(_, input) => setCommandValid(availableDestinations.includes(input))}
     />
   );
 };

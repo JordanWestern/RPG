@@ -1,15 +1,14 @@
-import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
-import { ReactElement, useState } from "react";
-import TravelToCommandHandler from "../command-handler/travel-to-command-handler";
-import UseItemCommandHandler from "../command-handler/use-item-command-handler";
-import AttackCommandHandler from "../command-handler/attack-command-handler";
-import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
+import { Autocomplete, IconButton, Stack, TextField } from '@mui/material';
+import { ReactElement, useState } from 'react';
+import TravelToCommandHandler from '../command-handler/travel-to-command-handler';
+import UseItemCommandHandler from '../command-handler/use-item-command-handler';
+import AttackCommandHandler from '../command-handler/attack-command-handler';
+import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 
 const CommandHandler = () => {
-  const commands = ["Travel To", "Use Item", "Attack"];
+  const commands = ['Travel To', 'Use Item', 'Attack'];
 
-  const [currentCommandHandler, setCommandHandler] =
-    useState<ReactElement>(null);
+  const [currentCommandHandler, setCommandHandler] = useState<ReactElement>(null);
 
   const [commandValid, setCommandValid] = useState(false);
 
@@ -17,11 +16,11 @@ const CommandHandler = () => {
     setCommandValid(false);
 
     switch (commandHandler) {
-      case "Travel To":
+      case 'Travel To':
         return <TravelToCommandHandler setCommandValid={setCommandValid} />;
-      case "Use Item":
+      case 'Use Item':
         return <UseItemCommandHandler setCommandValid={setCommandValid} />;
-      case "Attack":
+      case 'Attack':
         return <AttackCommandHandler setCommandValid={setCommandValid} />;
       default:
         return null;
@@ -36,9 +35,7 @@ const CommandHandler = () => {
         options={commands}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Command" />}
-        onInputChange={(_, input) =>
-          setCommandHandler(getCommandHandler(input))
-        }
+        onInputChange={(_, input) => setCommandHandler(getCommandHandler(input))}
       />
       {currentCommandHandler}
       <IconButton disabled={!commandValid} color="primary" size="large">

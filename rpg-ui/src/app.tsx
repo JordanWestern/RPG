@@ -1,23 +1,23 @@
-import { createRoot } from "react-dom/client";
-import React from "react";
-import { ThemeProvider } from "@emotion/react";
-import { CssBaseline, createTheme } from "@mui/material";
-import MainPage from "./pages/main/main-page";
+import { createRoot } from 'react-dom/client';
+import React from 'react';
+import { ThemeProvider } from '@emotion/react';
+import { CssBaseline, createTheme } from '@mui/material';
+import MainPage from './pages/main/main-page';
 
 // https://zenoo.github.io/mui-theme-creator/
 const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
     primary: {
-      main: "#ffa000",
+      main: '#ffa000'
     },
     secondary: {
-      main: "#9e9e9e",
-    },
-  },
+      main: '#9e9e9e'
+    }
+  }
 });
 
-const container = document.getElementById("app");
+const container = document.getElementById('app');
 
 const root = createRoot(container);
 
