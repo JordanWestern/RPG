@@ -3,13 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace RPG.Tests.RPG.Api;
 
-public abstract class ApiTestFixture
+public class ApiTestFixture
 {
     protected const string PlayersUri = "api/players";
 
     private readonly CancellationTokenSource tokenSource = new();
 
-    protected ApiTestFixture()
+    public ApiTestFixture()
     {
         var factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>

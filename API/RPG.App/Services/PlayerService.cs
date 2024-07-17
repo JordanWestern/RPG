@@ -1,14 +1,14 @@
 ﻿using RPG.App.Contracts;
-using RPG.Domain.Factories;
+using RPG.Domain.Entities;
 using RPG.Domain.Repositories;
 
 namespace RPG.App.Services;
 
-public class PlayerService(IPlayerRepository repository, IPlayerFactory playerFactory) : IPlayerService
+public class PlayerService(IPlayerRepository repository) : IPlayerService
 {
     public async Task<ExistingPlayer> CreateNewPlayer(NewPlayer newPlayer, CancellationToken cancellationToken)
     {
-        var entity = playerFactory.Create(newPlayer.Name);
+        var entity = Player.Create(newPlayer.Name);
         await repository.SaveNewPlayer(entity, cancellationToken);
         return new ExistingPlayer(entity.Id, entity.Name);
     }

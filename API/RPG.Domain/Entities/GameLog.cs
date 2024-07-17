@@ -1,6 +1,4 @@
-﻿using RPG.Domain.Factories;
-
-namespace RPG.Domain.Entities;
+﻿namespace RPG.Domain.Entities;
 
 public class GameLog
 {
@@ -20,8 +18,6 @@ public class GameLog
 
     public string LogMessage { get; }
 
-    public class GameLogFactory(IGuidFactory guidFactory) : IGameLogFactory
-    {
-        public GameLog Create(Guid playerId, string message) => new(guidFactory.NewGuid, playerId, DateOnly.FromDateTime(DateTime.UtcNow), message);
-    }
+    public static GameLog Create(Guid playerId, string message) =>
+        new(Guid.NewGuid(), playerId, DateOnly.FromDateTime(DateTime.UtcNow), message);
 }

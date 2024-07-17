@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RPG.Api\RPG.Api.csproj" />
+    <ProjectReference Include="..\RPG.Infrastructure\RPG.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

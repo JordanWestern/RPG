@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RPG.App.Contracts;
 using RPG.Domain.Entities;
-using RPG.Domain.Factories;
 using RPG.Infrastructure.DbContexts;
 using System.Net.Http.Json;
 
@@ -12,7 +11,7 @@ namespace RPG.Tests.RPG.Api.PlayersController;
 public class GetExistingPlayersTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase("Players"));
+        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase(nameof(GetExistingPlayersTests)));
 
     [Fact]
     public async Task GetExistingPlayers_ReturnsExistingPlayers()
@@ -20,13 +19,12 @@ public class GetExistingPlayersTests : ApiTestFixture
         // Arrange
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<PlayerDbContext>();
-        var playerFactory = scope.ServiceProvider.GetRequiredService<IPlayerFactory>();
 
         var players = new List<Player>();
 
         for (int i = 0; i < 10; i++) 
         {
-            players.Add(playerFactory.Create($"player_{i}"));
+            players.Add(Player.Create($"player_{i}"));
         }
 
         dbContext.AddRange(players);

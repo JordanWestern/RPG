@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RPG.App.Contracts;
-using RPG.Domain.Factories;
+using RPG.Infrastructure.DbContexts;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -10,15 +11,8 @@ namespace RPG.Tests.RPG.Api.PlayerController;
 
 public class CreatePlayerTests : ApiTestFixture
 {
-    private readonly TestGuidFactory guidProvider;
-
-    public CreatePlayerTests()
-    {
-        guidProvider = new TestGuidFactory();
-    }
-
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddTransient<IGuidFactory>(_ => guidProvider);
+        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase(nameof(CreatePlayerTests)));
 
     [Fact]
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerIsNull()
@@ -52,14 +46,16 @@ public class CreatePlayerTests : ApiTestFixture
         // Arrange
         const string Name = "Grognak the barbarian";
         var newPlayer = new NewPlayer(Name);
-        var expected = new ExistingPlayer(guidProvider.NewGuid, Name);
 
         // Act
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
+        var existingPlayer = await result.Content.ReadFromJsonAsync<ExistingPlayer>();
+
         using var scope = new AssertionScope();
         result.StatusCode.Should().Be(HttpStatusCode.Created);
-        (await result.Content.ReadFromJsonAsync<ExistingPlayer>()).Should().BeEquivalentTo(expected);
+        existingPlayer!.Name.Should().Be(Name);
+        existingPlayer.Id.Should().NotBeEmpty();
     }
 }

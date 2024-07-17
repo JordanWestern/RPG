@@ -1,6 +1,6 @@
 ﻿using RPG.Domain.Entities;
 
-namespace RPG.Domain.Events;
+namespace RPG.App.Services;
 
 public interface IGameEventService
 {
