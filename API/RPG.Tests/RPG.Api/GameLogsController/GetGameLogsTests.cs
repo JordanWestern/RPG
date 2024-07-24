@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RPG.Domain.Entities;
 using RPG.Infrastructure.DbContexts;
 using System.Net.Http.Json;
 
@@ -18,13 +19,13 @@ public class GetGameLogsTests : ApiTestFixture
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<GameLogDbContext>();
 
-        var logs = new List<Domain.Entities.GameLog>();
+        var logs = new List<GameLog>();
 
         var playerId = Guid.NewGuid();
 
         for (int i = 0; i < 10; i++)
         {
-            logs.Add(Domain.Entities.GameLog.Create(playerId, $"{i}"));
+            logs.Add(GameLog.Create(playerId, $"{i}"));
         }
 
         await dbContext.AddRangeAsync(logs, TokenSource.Token);
