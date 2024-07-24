@@ -25,3 +25,6 @@ Run the script to start the UI and API defined in package.json -
 ```
 npm run start
 ```
+
+## TODO
+- Test coverage for untested back end code (api, domain etc.)
