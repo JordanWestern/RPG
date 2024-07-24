@@ -1,8 +1,8 @@
-﻿using RPG.Domain.ValueObjects;
+﻿using RPG.App.Contracts;
 
 namespace RPG.App.Services;
 
 public interface IGameLogService
 {
-    public GameLogs GetGameLogs(Guid playerId, CancellationToken cancellationToken);
+    public IAsyncEnumerable<GameLog> GetGameLogs(Guid playerId, CancellationToken cancellationToken);
 }

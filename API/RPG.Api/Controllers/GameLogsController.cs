@@ -9,5 +9,5 @@ public class GameLogsController(IGameLogService gameLogService) : ControllerBase
 {
     [HttpGet("{playerId}")]
     public IActionResult GetGameLogs([FromRoute] Guid playerId, CancellationToken cancellationToken) =>
-        Ok(gameLogService.GetGameLogs(playerId, cancellationToken).InChronologicalOrder);
+        Ok(gameLogService.GetGameLogs(playerId, cancellationToken));
 }

@@ -2,9 +2,12 @@
 
 namespace RPG.Domain.ValueObjects;
 
-public class GameLogs(IAsyncEnumerable<GameLog> gameLogs)
+public record GameLogs
 {
-    private readonly IAsyncEnumerable<GameLog> gameLogs = gameLogs;
+    public GameLogs(IAsyncEnumerable<GameLog> Logs)
+    {
+        Value = Logs.OrderBy(log => log.Date);
+    }
 
-    public IAsyncEnumerable<GameLog> InChronologicalOrder => gameLogs.OrderBy(log => log.Date);
+    public IOrderedAsyncEnumerable<GameLog> Value { get; }
 }

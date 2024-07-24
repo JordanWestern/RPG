@@ -11,7 +11,7 @@ namespace RPG.Tests.RPG.Api.PlayersController;
 public class GetExistingPlayersTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase(nameof(GetExistingPlayersTests)));
+        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase("Players"));
 
     [Fact]
     public async Task GetExistingPlayers_ReturnsExistingPlayers()

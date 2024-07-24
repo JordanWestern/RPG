@@ -12,7 +12,7 @@ namespace RPG.Tests.RPG.Api.PlayerController;
 public class CreatePlayerTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase(nameof(CreatePlayerTests)));
+        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase("Players"));
 
     [Fact]
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerIsNull()

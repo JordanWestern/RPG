@@ -1,9 +1,11 @@
-﻿using RPG.Domain.Repositories;
-using RPG.Domain.ValueObjects;
+﻿using RPG.App.Contracts;
+using RPG.Domain.Repositories;
 
 namespace RPG.App.Services;
 
 public class GameLogService(IGameLogRepository gameLogRepository) : IGameLogService
 {
-    public GameLogs GetGameLogs(Guid playerId, CancellationToken cancellationToken) => gameLogRepository.GetLogs(playerId, cancellationToken);
+    public IAsyncEnumerable<GameLog> GetGameLogs(Guid playerId, CancellationToken cancellationToken) =>
+        gameLogRepository.GetLogs(playerId, cancellationToken).Value
+            .Select(entity => new GameLog(entity.Id, entity.Date, entity.LogMessage));
 }

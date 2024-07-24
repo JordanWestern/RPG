@@ -7,9 +7,6 @@ namespace RPG.Api.Controllers
     public class InformationController : ControllerBase
     {
         [HttpGet("ready")]
-        public IActionResult Ready()
-        {
-            return Ok();
-        }
+        public IActionResult Ready() => Ok();
     }
 }

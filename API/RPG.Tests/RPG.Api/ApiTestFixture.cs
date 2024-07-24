@@ -6,6 +6,7 @@ namespace RPG.Tests.RPG.Api;
 public class ApiTestFixture
 {
     protected const string PlayersUri = "api/players";
+    protected const string GameLogsUri = "api/gameLogs";
 
     private readonly CancellationTokenSource tokenSource = new();
 
