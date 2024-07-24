@@ -18,8 +18,4 @@
 		<InternalsVisibleTo Include="RPG.Tests" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="EventHandlers\" />
-	</ItemGroup>
-
 </Project>
