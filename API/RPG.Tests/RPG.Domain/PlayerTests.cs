@@ -9,7 +9,7 @@ public class PlayerTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
-    public void PlayerName_MustNotBeNullEmptyOrWhiteSpace(string? name)
+    public void Player_Throws_IfNameIsNullEmptyOrWhiteSpace(string? name)
     {
         // Act
         var act = () => Player.Create(name!);

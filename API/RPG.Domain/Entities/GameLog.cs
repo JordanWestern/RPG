@@ -4,6 +4,14 @@ public class GameLog
 {
     private GameLog(Guid id, Guid playerId, DateOnly date, string logMessage)
     {
+        // TODO: primitive obsession leads to all these guards, wrap these values in objects that can handle the null checks themselves.
+        if (playerId == Guid.Empty) 
+        { 
+            throw new ArgumentNullException(nameof(playerId), $"{nameof(playerId)} must not be an empty Guid"); 
+        }
+
+        ArgumentException.ThrowIfNullOrWhiteSpace(logMessage, nameof(logMessage));
+
         Id = id;
         PlayerId = playerId;
         Date = date;
