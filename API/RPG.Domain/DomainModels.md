@@ -8,6 +8,7 @@ class Player
     string Name;
     int Health;
     ItemId[] Items;
+    GameLogId[] Logs;
 
     Player Create();
     void AddItem(Item item);
@@ -43,7 +44,7 @@ class Location
     Location Create();
     void RemoveItem(Item item);
     void RemoveWeapon(Item item);
-    void RemoveEnemy(Item item);
+    void RemoveEnemy(Enemy item);
 }
 ```
 ```json
@@ -78,6 +79,7 @@ class Enemy
     string Description;
     int Health;
     ItemId[] Loot;
+    State State;
 
     Enemy Create();
     void TakeDamage(int damage);
@@ -93,7 +95,8 @@ class Enemy
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000"
-    ]
+    ],
+    "state": 0
 }
 ```
 
@@ -106,7 +109,7 @@ class Item
     string Description;
     ItemType Type;
 
-    Item Create();
+    Item Create(string name, string description, ItemType type);
     void Use();
 }
 ```
@@ -117,3 +120,25 @@ class Item
     "description": "enemy description",
     "type": 0
 }
+```
+
+## Game log
+```c#
+class GameLog
+{
+    GameLogId Id;
+    PlayerId PlayerId;
+    DateTime Created;
+    string Message;
+
+    GameLog Create(PlayerId playerId, string message);
+}
+```
+```json
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "playerId": "00000000-0000-0000-0000-000000000000",
+    "created": "25/07/2024 20:14:08",
+    "logMessage": "log message"
+}
+```
