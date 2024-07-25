@@ -9,6 +9,7 @@ class Player
     int Health;
     ItemId[] Items;
     GameLogId[] Logs;
+    State State;
 
     Player Create();
     void AddItem(Item item);
@@ -26,7 +27,8 @@ class Player
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000"
-    ]
+    ],
+    "state": 0 // <Enum> [Alive, Dead]
 }
 ```
 
@@ -96,7 +98,7 @@ class Enemy
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000"
     ],
-    "state": 0
+    "state": 0 // <Enum> [Alive, Dead]
 }
 ```
 
@@ -118,7 +120,7 @@ class Item
     "id": "00000000-0000-0000-0000-000000000000",
     "name": "item name",
     "description": "enemy description",
-    "type": 0
+    "type": 0 // <Enum> [Weapon, Healing...]
 }
 ```
 
