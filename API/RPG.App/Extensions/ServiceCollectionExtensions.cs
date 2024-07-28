@@ -16,7 +16,6 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IGameEventService, GameEventService>();
         services.AddScoped<IGameLogService, GameLogService>();
-        services.AddScoped<IPlayerService, PlayerService>();
 
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameLogRepository, GameLogRepository>();

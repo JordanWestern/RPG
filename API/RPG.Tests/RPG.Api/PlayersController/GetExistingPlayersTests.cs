@@ -20,21 +20,21 @@ public class GetExistingPlayersTests : ApiTestFixture
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<PlayerDbContext>();
 
-        var players = new List<Player>();
+        var players = new List<global::RPG.Domain.Entities.Player>();
 
         for (int i = 0; i < 10; i++) 
         {
-            players.Add(Player.Create($"player_{i}"));
+            players.Add(global::RPG.Domain.Entities.Player.Create($"player_{i}"));
         }
 
         dbContext.AddRange(players);
         dbContext.SaveChanges();
-        var expected = players.Select(player => new CreatePlayerResponse(player.Id, player.Name));
+        var expected = players.Select(player => new ExistingPlayer(player.Id, player.Name));
 
         // Act
         var result = await Client.GetAsync(PlayersUri, TokenSource.Token);
 
         // Assert
-        (await result.Content.ReadFromJsonAsync<CreatePlayerResponse[]>()).Should().BeEquivalentTo(expected);
+        (await result.Content.ReadFromJsonAsync<ExistingPlayer[]>()).Should().BeEquivalentTo(expected);
     }
 }

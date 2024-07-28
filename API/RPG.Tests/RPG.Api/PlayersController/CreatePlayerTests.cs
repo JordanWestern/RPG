@@ -51,7 +51,7 @@ public class CreatePlayerTests : ApiTestFixture
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
-        var existingPlayer = await result.Content.ReadFromJsonAsync<CreatePlayerResponse>();
+        var existingPlayer = await result.Content.ReadFromJsonAsync<ExistingPlayer>();
 
         using var scope = new AssertionScope();
         result.StatusCode.Should().Be(HttpStatusCode.Created);
