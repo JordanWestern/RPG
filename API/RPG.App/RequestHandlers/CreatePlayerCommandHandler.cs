@@ -1,6 +1,6 @@
 ﻿using MediatR;
+using RPG.App.Commands;
 using RPG.App.Contracts;
-using RPG.App.Requests;
 using RPG.Domain.Repositories;
 
 namespace RPG.App.RequestHandlers

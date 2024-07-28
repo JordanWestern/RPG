@@ -15,7 +15,6 @@ public static class ServiceCollectionExtensions
         services.AddSignalR();
 
         services.AddScoped<IGameEventService, GameEventService>();
-        services.AddScoped<IGameLogService, GameLogService>();
 
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameLogRepository, GameLogRepository>();

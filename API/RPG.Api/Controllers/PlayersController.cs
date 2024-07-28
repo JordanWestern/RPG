@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RPG.App.Commands;
 using RPG.App.Contracts;
 using RPG.App.Queries;
-using RPG.App.Requests;
 using System.ComponentModel.DataAnnotations;
 
 namespace RPG.Api.Controllers;
