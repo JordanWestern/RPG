@@ -29,12 +29,12 @@ public class GetExistingPlayersTests : ApiTestFixture
 
         dbContext.AddRange(players);
         dbContext.SaveChanges();
-        var expected = players.Select(player => new ExistingPlayer(player.Id, player.Name));
+        var expected = players.Select(player => new CreatePlayerResponse(player.Id, player.Name));
 
         // Act
         var result = await Client.GetAsync(PlayersUri, TokenSource.Token);
 
         // Assert
-        (await result.Content.ReadFromJsonAsync<ExistingPlayer[]>()).Should().BeEquivalentTo(expected);
+        (await result.Content.ReadFromJsonAsync<CreatePlayerResponse[]>()).Should().BeEquivalentTo(expected);
     }
 }

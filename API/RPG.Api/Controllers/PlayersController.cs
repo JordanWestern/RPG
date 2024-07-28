@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RPG.App.Contracts;
+using RPG.App.Requests;
 using RPG.App.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,7 +11,7 @@ namespace RPG.Api.Controllers;
 
 [Route("api/players")]
 [ApiController]
-public class PlayersController(IPlayerService playerService) : ControllerBase
+public class PlayersController(IPlayerService playerService, IMediator mediator) : ControllerBase
 {
     [HttpGet]
     public IActionResult GetExistingPlayers(CancellationToken cancellationToken) => 
@@ -23,7 +25,7 @@ public class PlayersController(IPlayerService playerService) : ControllerBase
             return BadRequest(newPlayer.Name);
         }
 
-        var player = await playerService.CreateNewPlayer(newPlayer, cancellationToken);
+        var player = await mediator.Send(new CreatePlayerRequest(newPlayer), cancellationToken);
         return Created(new Uri($"api/player/{player.Id}", UriKind.Relative), player);
     }
 }
