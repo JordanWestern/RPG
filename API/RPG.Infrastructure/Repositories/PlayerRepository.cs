@@ -5,7 +5,7 @@ using RPG.Infrastructure.DbContexts;
 
 namespace RPG.Infrastructure.Repositories;
 
-public class PlayerRepository(PlayerDbContext context, IMediator mediator) : IPlayerRepository
+public class PlayerRepository(ApplicationDbContext context, IMediator mediator) : IPlayerRepository
 {
     public async Task SaveNewPlayer(Player player, CancellationToken cancellationToken)
     {

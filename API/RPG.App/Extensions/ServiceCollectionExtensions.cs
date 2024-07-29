@@ -19,8 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameLogRepository, GameLogRepository>();
 
-        services.AddDbContext<PlayerDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase("Players"));
-        services.AddDbContext<GameLogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase("GameLogs"));
+        services.AddDbContext<ApplicationDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase("RPG"));
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(PlayerCreatedEventHandler).Assembly));
     }

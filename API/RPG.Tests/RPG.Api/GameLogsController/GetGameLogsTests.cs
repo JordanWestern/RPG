@@ -10,14 +10,14 @@ namespace RPG.Tests.RPG.Api.GameLogsController;
 public class GetGameLogsTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<GameLogDbContext>(builder => builder.UseInMemoryDatabase("GameLogs"));
+        serviceCollection => serviceCollection.AddDbContext<ApplicationDbContext>(builder => builder.UseInMemoryDatabase("RPG"));
 
     [Fact]
     public async Task GetGameLogs_ReturnsGameLogsAscendingByDate()
     {
         // Arrange
         using var scope = ServiceProvider.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<GameLogDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         var logs = new List<GameLog>();
 

@@ -11,20 +11,20 @@ namespace RPG.Tests.RPG.Api.PlayersController;
 public class GetExistingPlayersTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<PlayerDbContext>(builder => builder.UseInMemoryDatabase("Players"));
+        serviceCollection => serviceCollection.AddDbContext<ApplicationDbContext>(builder => builder.UseInMemoryDatabase("RPG"));
 
     [Fact]
     public async Task GetExistingPlayers_ReturnsExistingPlayers()
     {
         // Arrange
         using var scope = ServiceProvider.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<PlayerDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        var players = new List<global::RPG.Domain.Entities.Player>();
+        var players = new List<Player>();
 
         for (int i = 0; i < 10; i++) 
         {
-            players.Add(global::RPG.Domain.Entities.Player.Create($"player_{i}"));
+            players.Add(Player.Create($"player_{i}"));
         }
 
         dbContext.AddRange(players);

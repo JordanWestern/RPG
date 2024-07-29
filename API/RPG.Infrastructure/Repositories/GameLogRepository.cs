@@ -6,7 +6,7 @@ using RPG.Infrastructure.DbContexts;
 
 namespace RPG.Infrastructure.Repositories;
 
-public class GameLogRepository(GameLogDbContext context) : IGameLogRepository
+public class GameLogRepository(ApplicationDbContext context) : IGameLogRepository
 {
     public async Task CreateLog(GameLog gameLog, CancellationToken cancellationToken)
     {
