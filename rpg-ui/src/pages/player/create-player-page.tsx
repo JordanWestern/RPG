@@ -25,7 +25,7 @@ type CreatePlayerPageProps = {
 };
 
 const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
-  const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]); // TODO: Fetch from api bruh.
+  const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]);
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(null);
   const playerName = useRef('Grognak the barbarian');
@@ -51,6 +51,11 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
     setSelectedPlayer(createdPlayer);
   };
 
+  const onPlayerSelected = (playerId: string) => {
+    const selection = existingPlayers.find((player) => player.id === playerId);
+    setSelectedPlayer(selection);
+  };
+
   return (
     <div className={apiReady ? '' : 'blurred'}>
       {!apiReady && <Spinner />}
@@ -74,14 +79,10 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
                   <Select
                     id="select-player"
                     labelId="select-player-label"
-                    value={selectedPlayer?.name ?? ''}
-                    onChange={(e) =>
-                      setSelectedPlayer(
-                        existingPlayers.find((player) => (player.name = e.target.value))
-                      )
-                    }>
+                    value={selectedPlayer?.id ?? ''}
+                    onChange={(e) => onPlayerSelected(e.target.value)}>
                     {existingPlayers.map((existingPlayer) => (
-                      <MenuItem key={existingPlayer.id} value={existingPlayer.name}>
+                      <MenuItem key={existingPlayer.id} value={existingPlayer.id}>
                         {existingPlayer.name}
                       </MenuItem>
                     ))}
