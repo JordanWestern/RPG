@@ -32,4 +32,3 @@ npm run start
 - Resolve test issues with in memory database. 
   - GitHub action to run tests and build
 - Resolve muddy domain objects constructors by wrapping primitives and moving value guards there.
-- Use mediatr for CQRS
