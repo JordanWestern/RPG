@@ -34,7 +34,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on('GameEvent', (gameLog: gameLog) => {
+    connection.on('GameLog', (gameLog: gameLog) => {
       setLogs((prevLogs) => [
         ...prevLogs,
         { id: gameLog.id, date: gameLog.date, logMessage: gameLog.logMessage }

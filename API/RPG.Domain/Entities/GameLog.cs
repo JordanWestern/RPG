@@ -1,8 +1,10 @@
-﻿namespace RPG.Domain.Entities;
+﻿using RPG.Domain.Events;
 
-public class GameLog
+namespace RPG.Domain.Entities;
+
+public class GameLog : Entity
 {
-    private GameLog(Guid id, Guid playerId, DateOnly date, string logMessage)
+    private GameLog(Guid id, Guid playerId, DateOnly date, string logMessage) : base(id)
     {
         // TODO: primitive obsession leads to all these guards, wrap these values in objects that can handle the null checks themselves.
         if (playerId == Guid.Empty) 
@@ -12,13 +14,10 @@ public class GameLog
 
         ArgumentException.ThrowIfNullOrWhiteSpace(logMessage, nameof(logMessage));
 
-        Id = id;
         PlayerId = playerId;
         Date = date;
         LogMessage = logMessage;
     }
-
-    public Guid Id { get; }
 
     public Guid PlayerId { get; }
 
@@ -26,6 +25,10 @@ public class GameLog
 
     public string LogMessage { get; }
 
-    public static GameLog Create(Guid playerId, string message) =>
-        new(Guid.NewGuid(), playerId, DateOnly.FromDateTime(DateTime.UtcNow), message);
+    public static GameLog Create(Guid playerId, string message)
+    {
+        var gameLog = new GameLog(Guid.NewGuid(), playerId, DateOnly.FromDateTime(DateTime.UtcNow), message);
+        gameLog.RaiseDomainEvent(new GameLogCreatedEvent(gameLog));
+        return gameLog;
+    }
 }

@@ -1,30 +1,27 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
+using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using RPG.App.Contracts;
-using RPG.App.Services;
-using RPG.Domain.Repositories;
+using RPG.Domain.Events;
 using RPG.Infrastructure.DbContexts;
 using System.Net;
 using System.Net.Http.Json;
-
-using GameLog = RPG.Domain.Entities.GameLog;
 
 namespace RPG.Tests.RPG.Api.PlayerController;
 
 public class CreatePlayerTests : ApiTestFixture
 {
-    private readonly Mock<IGameLogRepository> gameLogRepositoryMock = new();
-    private readonly Mock<IGameEventService> gameEventServiceMock = new();
+    private readonly Mock<INotificationHandler<GameLogCreatedEvent>> gameLogCreatedEventHandler = new();
 
     protected override Action<IServiceCollection> ConfigureServices =>
         serviceCollection =>
         {
             serviceCollection
                 .UseInMemoryDatabase(nameof(CreatePlayerTests))
-                .AddScoped(_ => gameLogRepositoryMock.Object)
-                .AddScoped(_ => gameEventServiceMock.Object);
+                .AddScoped(_ => gameLogCreatedEventHandler.Object);
         };
 
     [Fact]
@@ -96,11 +93,14 @@ public class CreatePlayerTests : ApiTestFixture
         // Arrange
         var newPlayer = new NewPlayer(nameof(CreatePlayer_SavesGameLogInDatabase));
 
+        using var scope = ServiceProvider.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
         // Act
         _ = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
-        gameLogRepositoryMock.Verify(repo => repo.CreateLog(It.IsAny<GameLog>(), It.IsAny<CancellationToken>()), Times.Once);
+        dbContext.GameLogs.Should().HaveCountGreaterThan(0);
 
     }
 
@@ -114,6 +114,6 @@ public class CreatePlayerTests : ApiTestFixture
         _ = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
 
         // Assert
-        gameEventServiceMock.Verify(service => service.EmitGameEvent(It.IsAny<GameLog>(), It.IsAny<CancellationToken>()), Times.Once);
+        gameLogCreatedEventHandler.Verify(handler => handler.Handle(It.IsAny<GameLogCreatedEvent>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

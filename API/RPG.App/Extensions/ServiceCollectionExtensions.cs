@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RPG.App.EventHandlers;
-using RPG.App.Services;
 using RPG.Domain.Repositories;
 using RPG.Infrastructure.DbContexts;
 using RPG.Infrastructure.Repositories;
@@ -13,8 +12,6 @@ public static class ServiceCollectionExtensions
     public static void AddApplicationServices(this IServiceCollection services)
     {
         services.AddSignalR();
-
-        services.AddScoped<IGameEventService, GameEventService>();
 
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameLogRepository, GameLogRepository>();

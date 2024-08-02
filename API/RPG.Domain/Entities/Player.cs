@@ -2,23 +2,15 @@
 
 namespace RPG.Domain.Entities;
 
-public class Player
+public class Player : Entity
 {
-    private Player(Guid id, string name)
+    private Player(Guid id, string name) : base(id)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
-
-        Id = id;
         Name = name;
     }
 
-    public Guid Id { get; }
-
     public string Name { get; }
-
-    public List<IDomainEvent> DomainEvents { get; } = [];
-
-    public void RaiseDomainEvent(IDomainEvent domainEvent) => DomainEvents.Add(domainEvent);
 
     public static Player Create(string name)
     {
