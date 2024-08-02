@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using RPG.App.Dialogs;
 using RPG.Domain.Entities;
 using RPG.Domain.Events;
 using RPG.Domain.Repositories;
@@ -9,7 +10,7 @@ public class PlayerCreatedEventHandler(IGameLogRepository gameLogRepository) : I
 {
     public async Task Handle(PlayerCreatedEvent @event, CancellationToken cancellationToken)
     {
-        var log = GameLog.Create(@event.Player.Id, $"Player was created. Id: {@event.Player.Id} Name: {@event.Player.Name}");
+        var log = GameLog.Create(@event.Player.Id, Dialog.OpeningDialog(@event.Player.Name));
         await gameLogRepository.CreateLog(log, cancellationToken);
     }
 }

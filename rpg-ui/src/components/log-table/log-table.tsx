@@ -56,7 +56,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
 
   return (
     <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>
-      <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+      <Table stickyHeader aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
             <TableCell>Time</TableCell>
