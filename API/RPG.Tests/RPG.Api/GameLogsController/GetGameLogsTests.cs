@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using RPG.Domain.Entities;
 using RPG.Infrastructure.DbContexts;
 using System.Net.Http.Json;
@@ -10,7 +11,13 @@ namespace RPG.Tests.RPG.Api.GameLogsController;
 public class GetGameLogsTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.AddDbContext<ApplicationDbContext>(builder => builder.UseInMemoryDatabase("RPG"));
+        serviceCollection => serviceCollection.Replace(
+            new ServiceDescriptor(
+                typeof(ApplicationDbContext),
+                _ => new ApplicationDbContext(
+                    new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseInMemoryDatabase(nameof(GetGameLogsTests)).Options), 
+                ServiceLifetime.Scoped));
 
     [Fact]
     public async Task GetGameLogs_ReturnsGameLogsAscendingByDate()

@@ -29,6 +29,5 @@ npm run start
 ## TODO
 - Test coverage for untested front end code.
 - Test coverage for untested back end code (api, domain etc.).
-- Resolve test issues with in memory database. 
-  - GitHub action to run tests and build
+- GitHub action to run tests and build
 - Resolve muddy domain objects constructors by wrapping primitives and moving value guards there.
