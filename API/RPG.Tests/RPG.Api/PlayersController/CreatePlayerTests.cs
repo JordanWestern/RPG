@@ -105,10 +105,10 @@ public class CreatePlayerTests : ApiTestFixture
     }
 
     [Fact]
-    public async Task CreatePlayer_EmitsGameEvent()
+    public async Task CreatePlayer_InvokesGameLogCreatedEventHandler()
     {
         // Arrange
-        var newPlayer = new NewPlayer(nameof(CreatePlayer_EmitsGameEvent));
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_InvokesGameLogCreatedEventHandler));
 
         // Act
         _ = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
