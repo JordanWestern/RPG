@@ -1,10 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using RPG.App.Contracts;
-using RPG.Infrastructure.DbContexts;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -13,13 +10,7 @@ namespace RPG.Tests.RPG.Api.PlayerController;
 public class CreatePlayerTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.Replace(
-            new ServiceDescriptor(
-                typeof(ApplicationDbContext),
-                _ => new ApplicationDbContext(
-                    new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(nameof(CreatePlayerTests)).Options),
-                ServiceLifetime.Scoped));
+        serviceCollection => serviceCollection.UseInMemoryDatabase(nameof(CreatePlayerTests));
 
     [Fact]
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerIsNull()

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using RPG.Tests.RPG.Api.GameLogsController;
+using System.Runtime.CompilerServices;
 
 namespace RPG.Tests.RPG.Api;
 

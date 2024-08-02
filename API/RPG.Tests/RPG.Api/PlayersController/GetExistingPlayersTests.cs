@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using RPG.App.Contracts;
 using RPG.Domain.Entities;
 using RPG.Infrastructure.DbContexts;
@@ -12,13 +10,7 @@ namespace RPG.Tests.RPG.Api.PlayersController;
 public class GetExistingPlayersTests : ApiTestFixture
 {
     protected override Action<IServiceCollection> ConfigureServices =>
-        serviceCollection => serviceCollection.Replace(
-            new ServiceDescriptor(
-                typeof(ApplicationDbContext),
-                _ => new ApplicationDbContext(
-                    new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(nameof(GetExistingPlayersTests)).Options),
-                ServiceLifetime.Scoped));
+        serviceCollection => serviceCollection.UseInMemoryDatabase(nameof(GetExistingPlayersTests));
 
     [Fact]
     public async Task GetExistingPlayers_ReturnsExistingPlayers()
