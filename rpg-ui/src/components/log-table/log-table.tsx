@@ -17,7 +17,7 @@ type LogTableProps = {
 
 const LogTable = ({ playerId }: LogTableProps) => {
   const [logs, setLogs] = useState<gameLog[]>([]);
-  const lastLogRef = useRef(null);
+  const lastLogRef = useRef<HTMLTableRowElement | null>(null);
 
   useEffect(() => {
     const fetchGameLogs = async () => {
@@ -52,11 +52,11 @@ const LogTable = ({ playerId }: LogTableProps) => {
     if (lastLogRef.current) {
       lastLogRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, []);
+  }, [logs]);
 
   return (
-    <TableContainer component={Paper} sx={{ height: 500, minHeight: 200 }}>
-      <Table stickyHeader aria-label="simple table" size="small">
+    <TableContainer component={Paper} sx={{ maxHeight: 500, minHeight: 200 }}>
+      <Table stickyHeader aria-label="simple table" size="small" sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
             <TableCell>Time</TableCell>
@@ -66,7 +66,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
         <TableBody>
           {logs.map((row, index) => (
             <TableRow key={index} ref={index === logs.length - 1 ? lastLogRef : null}>
-              <TableCell>{row.date}</TableCell>
+              <TableCell sx={{ textWrap: 'nowrap' }}>{row.date}</TableCell>
               <TableCell>{row.logMessage}</TableCell>
             </TableRow>
           ))}
