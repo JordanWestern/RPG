@@ -28,6 +28,7 @@ public class GetExistingPlayersTests : ApiTestFixture
 
         dbContext.AddRange(players);
         dbContext.SaveChanges();
+
         var expected = players.Select(player => new ExistingPlayer(player.Id, player.Name));
 
         // Act
