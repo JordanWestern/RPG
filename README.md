@@ -28,5 +28,4 @@ npm run start
 
 ## TODO
 - Test coverage for untested front end code.
-- Test coverage for untested back end code (api, domain etc.).
 - Resolve muddy domain objects constructors by wrapping primitives and moving value guards there.
