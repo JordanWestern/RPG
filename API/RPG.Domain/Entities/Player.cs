@@ -7,6 +7,7 @@ public class Player : Entity
     private Player(Guid id, string name) : base(id)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
         Name = name;
     }
 
