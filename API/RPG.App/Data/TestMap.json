@@ -1,0 +1,32 @@
+{
+  "locations": [
+    {
+      "id": "a1b2c3d4-5678-9abc-def0-1234567890ab",
+      "name": "Forest Entrance",
+      "description": "The entrance to a dark and mysterious forest.",
+      "connectionIds": [
+        "b2c3d4e5-6789-abcd-ef01-234567890abc",
+        "c3d4e5f6-789a-bcde-f012-34567890abcd"
+      ],
+      "start": true
+    },
+    {
+      "id": "b2c3d4e5-6789-abcd-ef01-234567890abc",
+      "name": "Deep Forest",
+      "description": "Deeper into the forest, it gets darker.",
+      "connectionIds": [
+        "a1b2c3d4-5678-9abc-def0-1234567890ab"
+      ],
+      "start": false
+    },
+    {
+      "id": "c3d4e5f6-789a-bcde-f012-34567890abcd",
+      "name": "Village Road",
+      "description": "The road leading back to the village.",
+      "connectionIds": [
+        "a1b2c3d4-5678-9abc-def0-1234567890ab"
+      ],
+      "start": false
+    }
+  ]
+}

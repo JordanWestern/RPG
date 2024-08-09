@@ -29,8 +29,6 @@ public class Location : Entity
 
     public bool Start { get; }
 
-    public static Location Create(Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start)
-    {
-        return new Location(Guid.NewGuid(), playerId, name, description, connections, start);
-    }
+    public static Location Create(Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) =>
+        new(Guid.NewGuid(), playerId, name, description, connections, start);
 }
