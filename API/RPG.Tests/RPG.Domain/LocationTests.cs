@@ -12,7 +12,7 @@ public class LocationTests
     public void Location_Throws_IfNameIsNullEmptyOrWhiteSpace(string? name)
     {
         // Act
-        var act = () => Location.Create(Guid.NewGuid(), name!, "description", [Guid.NewGuid()], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), name!, "description", [Guid.NewGuid()], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -25,7 +25,7 @@ public class LocationTests
     public void Location_Throws_IfDescriptionIsNullEmptyOrWhiteSpace(string? description)
     {
         // Act
-        var act = () => Location.Create(Guid.NewGuid(), "name", description!, [Guid.NewGuid()], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), "name", description!, [Guid.NewGuid()], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -35,7 +35,7 @@ public class LocationTests
     public void Location_Throws_IfNoConnectionsProvided()
     {
         // Act
-        var act = () => Location.Create(Guid.NewGuid(), "name", "description", [], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), "name", "description", [], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -52,7 +52,7 @@ public class LocationTests
         var isStartLocation = true;
 
         // Act
-        var location = Location.Create(playerId, name, description, connections, isStartLocation);
+        var location = PlayerLocation.Create(playerId, name, description, connections, isStartLocation);
 
         // Assert
         location.PlayerId.Should().Be(playerId);

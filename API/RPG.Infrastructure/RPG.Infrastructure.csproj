@@ -28,4 +28,10 @@
     <ProjectReference Include="..\RPG.Domain\RPG.Domain.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Maps\TestMap1.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

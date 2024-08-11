@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameLogRepository, GameLogRepository>();
+        services.AddScoped<IMapFileRepository, MapFileRepository>();
+        services.AddScoped<IMapFileSource, JsonFileMapSource>();
 
         services.AddDbContext<ApplicationDbContext>(optionsBuilder => optionsBuilder.UseSqlite("Data Source=rpg.db", options => options.MigrationsAssembly("RPG.Infrastructure")));
 

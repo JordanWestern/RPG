@@ -1,8 +1,8 @@
 ﻿namespace RPG.Domain.Entities;
 
-public class Location : Entity
+public class PlayerLocation : Entity
 {
-    private Location(Guid id, Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) : base(id)
+    private PlayerLocation(Guid id, Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) : base(id)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentNullException.ThrowIfNullOrWhiteSpace(description, nameof(description));
@@ -29,6 +29,6 @@ public class Location : Entity
 
     public bool Start { get; }
 
-    public static Location Create(Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) =>
+    public static PlayerLocation Create(Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) =>
         new(Guid.NewGuid(), playerId, name, description, connections, start);
 }
