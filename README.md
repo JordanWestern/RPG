@@ -29,3 +29,4 @@ npm run start
 ## TODO
 - Test coverage for untested front end code.
 - Resolve muddy domain objects constructors by wrapping primitives and moving value guards there.
+- Refactor UI code and break it down into smaller components; i.e. create player page is getting large and the form items could be their own components.
