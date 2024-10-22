@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using RPG.App.Commands;
 using RPG.App.Contracts;
 using RPG.App.Queries;
-using System.ComponentModel.DataAnnotations;
 
 namespace RPG.Api.Controllers;
 
@@ -16,7 +15,7 @@ public class PlayersController(IMediator mediator) : ControllerBase
         Ok(mediator.CreateStream(new GetPlayersQuery(), cancellationToken));
 
     [HttpPost()]
-    public async Task<IActionResult> CreatePlayer([FromBody][Required] NewPlayer newPlayer, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreatePlayer([FromBody] NewPlayer newPlayer, CancellationToken cancellationToken)
     {
         // TODO: use meadiatr pipeline behaviour to validate and throw, use .NET exception handling middleware to catch and convert to problem details.
         if (!newPlayer.IsValid())
