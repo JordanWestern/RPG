@@ -109,11 +109,17 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
               // TODO: There is a bug in the MUI component https://github.com/mui/material-ui/issues/43718
               // if the page is resized in dev, you get ResizeObserver loop completed with undelivered notifications.
               // Should not surface in the release build.
-              id="outlined-multiline-flexible"
+              id="outlined-read-only-input"
+              color="secondary"
               defaultValue={selectedMap?.description ?? null}
-              variant="outlined"
               multiline
-              disabled
+              label={`Description: ${selectedMap?.name ?? 'Default Map Name'}`}
+              InputProps={{
+                readOnly: true
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
             />
             <Button variant="outlined" onClick={handleCreatePlayer}>
               Create New Player
