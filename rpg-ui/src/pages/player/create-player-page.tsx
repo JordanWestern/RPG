@@ -44,8 +44,10 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
       }
     };
 
-    fetchExistingPlayers();
-  }, []);
+    if (apiReady) {
+      fetchExistingPlayers();
+    }
+  }, [apiReady]);
 
   useEffect(() => {
     const fetchMaps = async () => {
@@ -54,8 +56,10 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
       setSelectedMap(maps[0]);
     };
 
-    fetchMaps();
-  }, []);
+    if (apiReady) {
+      fetchMaps();
+    }
+  }, [apiReady]);
 
   const handleCreatePlayer = async () => {
     const newPlayer: newPlayer = { name: playerName.current };
