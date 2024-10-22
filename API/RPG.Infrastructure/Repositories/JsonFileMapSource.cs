@@ -1,25 +1,37 @@
 ﻿using RPG.Domain.ValueObjects;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace RPG.Infrastructure.Repositories;
 
+// TODO: Tests.
 public class JsonFileMapSource : IMapFileSource
 {
     private readonly JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true };
 
     public async IAsyncEnumerable<Map> GetMaps([EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        var mapFilePaths = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Maps"));
+        var assembly = Assembly.GetExecutingAssembly();
+        var mapFileResources = assembly.GetManifestResourceNames();
 
-        foreach (var filePath in mapFilePaths)
+        foreach (var mapFile in mapFileResources) 
         {
-            var file = await File.ReadAllTextAsync(filePath, cancellationToken);
-            var map = JsonSerializer.Deserialize<Map>(file, options);
-            if (map != null)
+            using var stream = assembly.GetManifestResourceStream(mapFile);
+
+            if (stream == null) 
             {
-                yield return map;
+                continue;
             }
+
+            var map = await JsonSerializer.DeserializeAsync<Map>(stream, options, cancellationToken);
+
+            if (map == null)
+            {
+                continue;
+            }
+
+            yield return map;
         }
     }
 }

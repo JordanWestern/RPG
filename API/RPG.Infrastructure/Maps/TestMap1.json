@@ -19,8 +19,7 @@
       "description": "Deeper into the forest, it gets darker.",
       "connections": [
         "B6666C4E-83C6-46CF-98FD-7A32C279D8B2"
-      ],
-      "start": false
+      ]
     },
     {
       "id": "04EECA7D-17B4-404D-912D-9170D2810292",
@@ -28,8 +27,7 @@
       "description": "The road leading back to the village.",
       "connections": [
         "B6666C4E-83C6-46CF-98FD-7A32C279D8B2"
-      ],
-      "start": false
+      ]
     }
   ]
 }

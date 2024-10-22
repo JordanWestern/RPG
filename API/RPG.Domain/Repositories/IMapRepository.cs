@@ -2,7 +2,7 @@
 
 namespace RPG.Domain.Repositories;
 
-public interface IMapFileRepository
+public interface IMapRepository
 {
     IAsyncEnumerable<Map> GetMaps(CancellationToken cancellationToken);
 }
