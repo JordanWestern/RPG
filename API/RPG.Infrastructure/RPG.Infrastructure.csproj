@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <None Remove="Maps\TestMap1.json" />
+    <None Remove="Maps\TestMap2.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Maps\TestMap2.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maps\TestMap1.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

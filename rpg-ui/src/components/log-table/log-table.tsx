@@ -17,7 +17,7 @@ type LogTableProps = {
 
 const LogTable = ({ playerId }: LogTableProps) => {
   const [logs, setLogs] = useState<gameLog[]>([]);
-  const lastLogRef = useRef<HTMLTableRowElement | null>(null);
+  const lastLogRef = useRef<HTMLTableRowElement>(null);
 
   useEffect(() => {
     const fetchGameLogs = async () => {

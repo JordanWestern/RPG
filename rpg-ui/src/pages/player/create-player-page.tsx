@@ -18,6 +18,7 @@ import {
   getExistingPlayers,
   newPlayer
 } from '../../api/utils/player/player-api';
+import { getMaps, map } from '../../api/utils/map/map-api';
 import './create-player-page.css';
 
 type CreatePlayerPageProps = {
@@ -26,8 +27,10 @@ type CreatePlayerPageProps = {
 
 const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]);
+  const [maps, setMaps] = useState<map[]>([]);
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(null);
+  const [selectedMap, setSelectedMap] = useState<map | null>(null);
   const playerName = useRef('Grognak the barbarian');
 
   useCheckApiStatus(setApiReady);
@@ -44,6 +47,16 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
     fetchExistingPlayers();
   }, []);
 
+  useEffect(() => {
+    const fetchMaps = async () => {
+      const maps = await getMaps();
+      setMaps(maps);
+      setSelectedMap(maps[0]);
+    };
+
+    fetchMaps();
+  }, []);
+
   const handleCreatePlayer = async () => {
     const newPlayer: newPlayer = { name: playerName.current };
     const createdPlayer = await createNewPlayer(newPlayer);
@@ -54,6 +67,11 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   const onPlayerSelected = (playerId: string) => {
     const selection = existingPlayers.find((player) => player.id === playerId);
     setSelectedPlayer(selection);
+  };
+
+  const onMapSelected = (mapId: string) => {
+    const selection = maps.find((map) => map.id === mapId);
+    setSelectedMap(selection);
   };
 
   return (
@@ -68,6 +86,31 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
               variant="standard"
               placeholder={playerName.current}
               onChange={(e) => (playerName.current = e.target.value)}
+            />
+            <FormControl variant="standard">
+              <InputLabel id="select-map-label">Select Map</InputLabel>
+              <Select
+                id="select-map"
+                labelId="select-map-label"
+                value={selectedMap?.id ?? ''}
+                onChange={(e) => onMapSelected(e.target.value)}>
+                {maps.map((map) => (
+                  <MenuItem key={map.id} value={map.id}>
+                    {map.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              // TODO: There is a bug in the MUI component https://github.com/mui/material-ui/issues/43718
+              // if the page is resized in dev, you get ResizeObserver loop completed with undelivered notifications.
+              // Should not surface in the release build.
+              id="outlined-multiline-flexible"
+              label="Description"
+              defaultValue={selectedMap?.description ?? ''}
+              variant="outlined"
+              multiline
+              disabled
             />
             <Button variant="outlined" onClick={handleCreatePlayer}>
               Create New Player
