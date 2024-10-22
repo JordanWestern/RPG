@@ -110,8 +110,7 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
               // if the page is resized in dev, you get ResizeObserver loop completed with undelivered notifications.
               // Should not surface in the release build.
               id="outlined-multiline-flexible"
-              label="Description"
-              defaultValue={selectedMap?.description ?? ''}
+              defaultValue={selectedMap?.description ?? null}
               variant="outlined"
               multiline
               disabled
