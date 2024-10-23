@@ -1,0 +1,4 @@
+﻿// DB Migration commands
+
+1. dotnet ef migrations add <migration name i.e. AddNewColumn> --project RPG.Infrastructure --startup-project RPG.Api
+2. dotnet ef database update --project RPG.Infrastructure --startup-project RPG.Api
