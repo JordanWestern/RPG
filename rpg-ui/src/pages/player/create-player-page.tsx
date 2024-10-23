@@ -14,23 +14,23 @@ import Spinner from '../../shared/spinner';
 import useCheckApiStatus from '../../api/utils/info/check-api-status';
 import {
   createNewPlayer,
-  existingPlayer,
+  ExistingPlayer,
   getExistingPlayers,
-  newPlayer
+  NewPlayer
 } from '../../api/utils/player/player-api';
-import { getMaps, map } from '../../api/utils/map/map-api';
+import { getMaps, Map } from '../../api/utils/map/map-api';
 import './create-player-page.css';
 
 type CreatePlayerPageProps = {
-  continueWithPlayer: (selectedPlayer: existingPlayer) => void;
+  continueWithPlayer: (selectedPlayer: ExistingPlayer) => void;
 };
 
 const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
-  const [existingPlayers, setExistingPlayers] = useState<existingPlayer[]>([]);
-  const [maps, setMaps] = useState<map[]>([]);
+  const [existingPlayers, setExistingPlayers] = useState<ExistingPlayer[]>([]);
+  const [maps, setMaps] = useState<Map[]>([]);
   const [apiReady, setApiReady] = useState(false);
-  const [selectedPlayer, setSelectedPlayer] = useState<existingPlayer | null>(null);
-  const [selectedMap, setSelectedMap] = useState<map | null>(null);
+  const [selectedPlayer, setSelectedPlayer] = useState<ExistingPlayer | null>(null);
+  const [selectedMap, setSelectedMap] = useState<Map | null>(null);
   const playerName = useRef('Grognak the barbarian');
 
   useCheckApiStatus(setApiReady);
@@ -62,7 +62,7 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   }, [apiReady]);
 
   const handleCreatePlayer = async () => {
-    const newPlayer: newPlayer = { name: playerName.current };
+    const newPlayer: NewPlayer = { name: playerName.current };
     const createdPlayer = await createNewPlayer(newPlayer);
     setExistingPlayers((existingPlayers) => [...existingPlayers, createdPlayer]);
     setSelectedPlayer(createdPlayer);

@@ -9,14 +9,14 @@ import {
   TableRow
 } from '@mui/material';
 import { useEffect, useState, useRef } from 'react';
-import { gameLog, getGameLogs } from '../../api/game-logs/game-logs-api';
+import { GameLog, getGameLogs } from '../../api/game-logs/game-logs-api';
 
 type LogTableProps = {
   playerId: string;
 };
 
 const LogTable = ({ playerId }: LogTableProps) => {
-  const [logs, setLogs] = useState<gameLog[]>([]);
+  const [logs, setLogs] = useState<GameLog[]>([]);
   const lastLogRef = useRef<HTMLTableRowElement>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const LogTable = ({ playerId }: LogTableProps) => {
       .withAutomaticReconnect()
       .build();
 
-    connection.on('GameLog', (gameLog: gameLog) => {
+    connection.on('GameLog', (gameLog: GameLog) => {
       setLogs((prevLogs) => [
         ...prevLogs,
         { id: gameLog.id, date: gameLog.date, logMessage: gameLog.logMessage }

@@ -4,12 +4,12 @@ import { useRef, useState } from 'react';
 import Sidebar from '../../components/sidebar/sidebar';
 import CreatePlayerPage from '../player/create-player-page';
 import AdventurePage from '../adventure/adventure-page';
-import { existingPlayer } from '../../api/utils/player/player-api';
+import { ExistingPlayer } from '../../api/utils/player/player-api';
 
 const MainPage = () => {
-  const player = useRef<existingPlayer | null>(null);
+  const player = useRef<ExistingPlayer | null>(null);
 
-  const continueWithPlayer = (existingPlayer: existingPlayer) => {
+  const continueWithPlayer = (existingPlayer: ExistingPlayer) => {
     player.current = existingPlayer;
     setCurrentPage(<AdventurePage existingPlayer={player.current} />);
   };

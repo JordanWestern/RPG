@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export type newPlayer = {
+export type NewPlayer = {
   name: string;
 };
 
-export type existingPlayer = {
+export type ExistingPlayer = {
   id: string;
   name: string;
 };
 
-export const createNewPlayer = async (newPlayer: newPlayer) => {
-  const response = await axios.post<existingPlayer>('http://localhost:5028/api/players', newPlayer);
+export const createNewPlayer = async (newPlayer: NewPlayer) => {
+  const response = await axios.post<ExistingPlayer>('http://localhost:5028/api/players', newPlayer);
   return response.data;
 };
 
 export const getExistingPlayers = async () => {
-  const response = await axios.get<existingPlayer[]>('http://localhost:5028/api/players');
+  const response = await axios.get<ExistingPlayer[]>('http://localhost:5028/api/players');
   return response.data;
 };
