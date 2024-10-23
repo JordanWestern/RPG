@@ -9,6 +9,7 @@ using RPG.Domain.Events;
 using RPG.Infrastructure.DbContexts;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace RPG.Tests.RPG.Api.PlayerController;
 
@@ -41,10 +42,39 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerNameIsNullEmptyOrWhiteSpace(string name)
     {
         // Arrange
-        var newPlayer = new NewPlayer(name);
+        var newPlayer = new NewPlayer(name, Guid.NewGuid());
 
         // Act
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
+
+        // Assert
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerMapIdIsEmpty()
+    {
+        // Arrange
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_ReturnsBadRequest_IfNewPlayerMapIdIsEmpty), Guid.Empty);
+
+        // Act
+        var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
+
+        // Assert
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerMapIdIsNull()
+    {
+        // Arrange
+        var newPlayer = new { Name = nameof(CreatePlayer_ReturnsBadRequest_IfNewPlayerMapIdIsEmpty), MapId = (Guid?)null };
+
+        var x = JsonSerializer.Serialize(newPlayer);
+
+        // Act
+        var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
+        var content = await result.Content.ReadAsStringAsync();
 
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -55,7 +85,7 @@ public class CreatePlayerTests : ApiTestFixture
     {
         // Arrange
         const string Name = nameof(CreatePlayer_ReturnsCreated_IfNewPlayerIsValid);
-        var newPlayer = new NewPlayer(Name);
+        var newPlayer = new NewPlayer(Name, Guid.NewGuid());
 
         // Act
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
@@ -74,7 +104,7 @@ public class CreatePlayerTests : ApiTestFixture
     {
         // Arrange
         const string Name = nameof(CreatePlayer_SavesPlayerInDatabase);
-        var newPlayer = new NewPlayer(Name);
+        var newPlayer = new NewPlayer(Name, Guid.NewGuid());
 
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -91,7 +121,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_SavesGameLogInDatabase()
     {
         // Arrange
-        var newPlayer = new NewPlayer(nameof(CreatePlayer_SavesGameLogInDatabase));
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_SavesGameLogInDatabase), Guid.NewGuid());
 
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -108,7 +138,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_InvokesGameLogCreatedEventHandler()
     {
         // Arrange
-        var newPlayer = new NewPlayer(nameof(CreatePlayer_InvokesGameLogCreatedEventHandler));
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_InvokesGameLogCreatedEventHandler), Guid.NewGuid());
 
         // Act
         _ = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);

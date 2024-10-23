@@ -62,7 +62,7 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   }, [apiReady]);
 
   const handleCreatePlayer = async () => {
-    const newPlayer: NewPlayer = { name: playerName.current };
+    const newPlayer: NewPlayer = { name: playerName.current, mapId: selectedMap.id };
     const createdPlayer = await createNewPlayer(newPlayer);
     setExistingPlayers((existingPlayers) => [...existingPlayers, createdPlayer]);
     setSelectedPlayer(createdPlayer);

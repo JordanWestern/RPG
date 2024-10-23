@@ -17,7 +17,6 @@ public class PlayersController(IMediator mediator) : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> CreatePlayer([FromBody] NewPlayer newPlayer, CancellationToken cancellationToken)
     {
-        // TODO: use meadiatr pipeline behaviour to validate and throw, use .NET exception handling middleware to catch and convert to problem details.
         if (!newPlayer.IsValid())
         {
             return BadRequest(newPlayer.Name);
