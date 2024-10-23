@@ -12,7 +12,7 @@ public class PlayerTests
     public void Player_Throws_IfNameIsNullEmptyOrWhiteSpace(string? name)
     {
         // Act
-        var act = () => Player.Create(name!);
+        var act = () => Player.Create(name!, Guid.NewGuid());
 
         // Assert
         act.Should().Throw<ArgumentException>();

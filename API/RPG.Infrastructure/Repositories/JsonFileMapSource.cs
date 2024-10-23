@@ -10,6 +10,13 @@ public class JsonFileMapSource : IMapFileSource
 {
     private readonly JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true };
 
+    public async Task<Map> GetMap(Guid mapId, CancellationToken cancellationToken)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var mapFileResources = assembly.GetManifestResourceNames();
+        return await GetMaps(cancellationToken).SingleAsync(map => map.Id == mapId, cancellationToken);
+    }
+
     public async IAsyncEnumerable<Map> GetMaps([EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var assembly = Assembly.GetExecutingAssembly();

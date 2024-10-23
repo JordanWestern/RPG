@@ -1,15 +1,17 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using MediatR;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using RPG.App.Contracts;
 using RPG.Domain.Events;
+using RPG.Domain.ValueObjects;
 using RPG.Infrastructure.DbContexts;
+using RPG.Infrastructure.Repositories;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Map = RPG.Domain.ValueObjects.Map;
 
 namespace RPG.Tests.RPG.Api.PlayerController;
 
@@ -17,12 +19,20 @@ public class CreatePlayerTests : ApiTestFixture
 {
     private readonly Mock<INotificationHandler<GameLogCreatedEvent>> gameLogCreatedEventHandler = new();
 
+    private readonly Mock<IMapFileSource> mockFileSource = new();
+
+    private readonly Guid mapId = Guid.NewGuid();
+
     protected override Action<IServiceCollection> ConfigureServices =>
         serviceCollection =>
         {
+            mockFileSource.Setup(fileSource => fileSource.GetMap(mapId, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Map(mapId, "map name", "map description", [ new Location(Guid.NewGuid(), "location name", "location description", [Guid.NewGuid()], true) ]));
+
             serviceCollection
                 .UseInMemoryDatabase(nameof(CreatePlayerTests))
-                .AddScoped(_ => gameLogCreatedEventHandler.Object);
+                .AddScoped(_ => gameLogCreatedEventHandler.Object)
+                .AddScoped(_ => mockFileSource.Object);
         };
 
     [Fact]
@@ -42,7 +52,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_ReturnsBadRequest_IfNewPlayerNameIsNullEmptyOrWhiteSpace(string name)
     {
         // Arrange
-        var newPlayer = new NewPlayer(name, Guid.NewGuid());
+        var newPlayer = new NewPlayer(name, mapId);
 
         // Act
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
@@ -85,7 +95,7 @@ public class CreatePlayerTests : ApiTestFixture
     {
         // Arrange
         const string Name = nameof(CreatePlayer_ReturnsCreated_IfNewPlayerIsValid);
-        var newPlayer = new NewPlayer(Name, Guid.NewGuid());
+        var newPlayer = new NewPlayer(Name, mapId);
 
         // Act
         var result = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);
@@ -104,7 +114,7 @@ public class CreatePlayerTests : ApiTestFixture
     {
         // Arrange
         const string Name = nameof(CreatePlayer_SavesPlayerInDatabase);
-        var newPlayer = new NewPlayer(Name, Guid.NewGuid());
+        var newPlayer = new NewPlayer(Name, mapId);
 
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -121,7 +131,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_SavesGameLogInDatabase()
     {
         // Arrange
-        var newPlayer = new NewPlayer(nameof(CreatePlayer_SavesGameLogInDatabase), Guid.NewGuid());
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_SavesGameLogInDatabase), mapId);
 
         using var scope = ServiceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -138,7 +148,7 @@ public class CreatePlayerTests : ApiTestFixture
     public async Task CreatePlayer_InvokesGameLogCreatedEventHandler()
     {
         // Arrange
-        var newPlayer = new NewPlayer(nameof(CreatePlayer_InvokesGameLogCreatedEventHandler), Guid.NewGuid());
+        var newPlayer = new NewPlayer(nameof(CreatePlayer_InvokesGameLogCreatedEventHandler), mapId);
 
         // Act
         _ = await Client.PostAsJsonAsync(PlayersUri, newPlayer, TokenSource.Token);

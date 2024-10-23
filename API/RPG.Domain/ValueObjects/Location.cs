@@ -2,7 +2,7 @@
 
 public record Location
 {
-    public Location(Guid id, string name, string description, IEnumerable<Guid> connections, bool start)
+    public Location(Guid id, string name, string description, IEnumerable<Guid> connections, bool isStartingLocation)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentException.ThrowIfNullOrWhiteSpace(description, nameof(description));
@@ -16,7 +16,7 @@ public record Location
         Name = name;
         Description = description;
         Connections = connections;
-        Start = start;
+        IsStartingLocation = isStartingLocation;
     }
 
     public Guid Id { get; }
@@ -27,5 +27,5 @@ public record Location
 
     public IEnumerable<Guid> Connections { get; }
 
-    public bool Start { get; }
+    public bool IsStartingLocation { get; }
 }

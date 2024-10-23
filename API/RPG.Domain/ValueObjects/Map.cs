@@ -12,6 +12,11 @@ public record Map
             throw new ArgumentException("map must have at least one location");
         }
 
+        if (locations.Count(location => location.IsStartingLocation) != 1)
+        {
+            throw new ArgumentException("map must have one start location");
+        }
+
         Id = id;
         Name = name;
         Description = description;
@@ -25,4 +30,6 @@ public record Map
     public string Description { get; }
 
     public IEnumerable<Location> Locations { get; }
+
+    public Location StartingLocation => Locations.Single(location => location.IsStartingLocation);
 }

@@ -2,9 +2,19 @@
 
 namespace RPG.Domain.Entities;
 
-public abstract class Entity(Guid id)
+public abstract class Entity
 {
-    public Guid Id { get; } = id;
+    protected Entity(Guid id)
+    {
+        if (id == Guid.Empty)
+        {
+            throw new ArgumentException("Id must not be empty", nameof(id));
+        }
+
+        Id = id;
+    }
+
+    public Guid Id { get; }
 
     public List<IDomainEvent> DomainEvents { get; } = [];
 

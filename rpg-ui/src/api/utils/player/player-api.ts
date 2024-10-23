@@ -2,11 +2,13 @@ import axios from 'axios';
 
 export type NewPlayer = {
   name: string;
+  mapId: string;
 };
 
 export type ExistingPlayer = {
   id: string;
   name: string;
+  currentLocation: string;
 };
 
 export const createNewPlayer = async (newPlayer: NewPlayer) => {

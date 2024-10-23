@@ -23,13 +23,13 @@ public class GetExistingPlayersTests : ApiTestFixture
 
         for (int i = 0; i < 10; i++) 
         {
-            players.Add(Player.Create($"player_{i}"));
+            players.Add(Player.Create($"player_{i}", Guid.NewGuid()));
         }
 
         dbContext.AddRange(players);
         dbContext.SaveChanges();
 
-        var expected = players.Select(player => new ExistingPlayer(player.Id, player.Name));
+        var expected = players.Select(player => new ExistingPlayer(player.Id, player.Name, player.CurrentLocation));
 
         // Act
         var result = await Client.GetAsync(PlayersUri, TokenSource.Token);

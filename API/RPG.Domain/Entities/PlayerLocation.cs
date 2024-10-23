@@ -1,8 +1,10 @@
-﻿namespace RPG.Domain.Entities;
+﻿using RPG.Domain.ValueObjects;
+
+namespace RPG.Domain.Entities;
 
 public class PlayerLocation : Entity
 {
-    private PlayerLocation(Guid id, Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) : base(id)
+    private PlayerLocation(Guid id, Guid mapId, Guid playerId, string name, string description, IEnumerable<Guid> connections, bool isStartLocation) : base(id)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(name, nameof(name));
         ArgumentNullException.ThrowIfNullOrWhiteSpace(description, nameof(description));
@@ -12,12 +14,15 @@ public class PlayerLocation : Entity
             throw new ArgumentException("location must have at least one connection");
         }
 
+        MapId = mapId;
         PlayerId = playerId;
         Name = name;
         Description = description;
         Connections = connections;
-        Start = start;
+        IsStartLocation = isStartLocation;
     }
+
+    public Guid MapId { get; }
 
     public Guid PlayerId { get; }
 
@@ -27,8 +32,8 @@ public class PlayerLocation : Entity
 
     public IEnumerable<Guid> Connections { get; }
 
-    public bool Start { get; }
+    public bool IsStartLocation { get; }
 
-    public static PlayerLocation Create(Guid playerId, string name, string description, IEnumerable<Guid> connections, bool start) =>
-        new(Guid.NewGuid(), playerId, name, description, connections, start);
+    public static PlayerLocation Create(Guid locationId, Guid mapId, Guid playerId, string name, string description, IEnumerable<Guid> connections, bool isStartLocation) =>
+        new(locationId, mapId, playerId, name, description, connections, isStartLocation);
 }

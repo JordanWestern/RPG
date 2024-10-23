@@ -9,5 +9,5 @@ internal class GetPlayersQueryHandler(IPlayerRepository repository) : IStreamReq
 {
     public IAsyncEnumerable<ExistingPlayer> Handle(GetPlayersQuery request, CancellationToken cancellationToken) => 
         repository.GetExistingPlayers(cancellationToken)
-            .Select(entity => new ExistingPlayer(entity.Id, entity.Name));
+            .Select(entity => new ExistingPlayer(entity.Id, entity.Name, entity.CurrentLocation));
 }
