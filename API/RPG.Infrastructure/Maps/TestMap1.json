@@ -4,29 +4,29 @@
   "description": "Test Map 1 lorem ipsum sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident",
   "locations": [
     {
-      "id": "B6666C4E-83C6-46CF-98FD-7A32C279D8B2",
+      "id": "B6666C4E-83C6-46CF-98FD-7A32C279D8B3",
       "name": "Forest Entrance",
       "description": "The entrance to a dark and mysterious forest.",
       "connections": [
-        "9ED91E27-4B20-492B-AC82-BD30D0420B02",
-        "04EECA7D-17B4-404D-912D-9170D2810292"
+        "9ED91E27-4B20-492B-AC82-BD30D0420B03",
+        "04EECA7D-17B4-404D-912D-9170D2810293"
       ],
       "isStartingLocation": true
     },
     {
-      "id": "9ED91E27-4B20-492B-AC82-BD30D0420B02",
+      "id": "9ED91E27-4B20-492B-AC82-BD30D0420B03",
       "name": "Deep Forest",
       "description": "Deeper into the forest, it gets darker.",
       "connections": [
-        "B6666C4E-83C6-46CF-98FD-7A32C279D8B2"
+        "B6666C4E-83C6-46CF-98FD-7A32C279D8B3"
       ]
     },
     {
-      "id": "04EECA7D-17B4-404D-912D-9170D2810292",
+      "id": "04EECA7D-17B4-404D-912D-9170D2810293",
       "name": "Village Road",
       "description": "The road leading back to the village.",
       "connections": [
-        "B6666C4E-83C6-46CF-98FD-7A32C279D8B2"
+        "B6666C4E-83C6-46CF-98FD-7A32C279D8B3"
       ]
     }
   ]
