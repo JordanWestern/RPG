@@ -14,7 +14,7 @@ internal class CreatePlayerCommandHandler(IPlayerRepository playerRepository, IM
         var playerEntity = Player.Create(request.NewPlayer.Name, map.StartingLocation.Id);
 
         // TODO: It might be an idea to regenrate the location ids for the entities to avoid needing to refer the player id and map id.
-        var locations = map.Locations.Select(location => PlayerLocation.Create(location.Id, map.Id, playerEntity.Id, location.Name, location.Description, location.Connections, location.IsStartingLocation));
+        var locations = map.Locations.Select(location => PlayerLocation.Create(location.Id, playerEntity.Id, location.Name, location.Description, location.Connections, location.IsStartingLocation));
 
         await playerRepository.SaveNewPlayer(playerEntity, cancellationToken);
         await mapRepository.SavePlayerLocations(locations, cancellationToken);

@@ -12,7 +12,7 @@ public class LocationTests
     public void Location_Throws_IfNameIsNullEmptyOrWhiteSpace(string? name)
     {
         // Act
-        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), name!, "description", [Guid.NewGuid()], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), name!, "description", [Guid.NewGuid()], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -25,7 +25,7 @@ public class LocationTests
     public void Location_Throws_IfDescriptionIsNullEmptyOrWhiteSpace(string? description)
     {
         // Act
-        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "name", description!, [Guid.NewGuid()], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), "name", description!, [Guid.NewGuid()], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -35,7 +35,7 @@ public class LocationTests
     public void Location_Throws_IfNoConnectionsProvided()
     {
         // Act
-        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "name", "description", [], false);
+        var act = () => PlayerLocation.Create(Guid.NewGuid(), Guid.NewGuid(), "name", "description", [], false);
 
         // Assert
         act.Should().Throw<ArgumentException>();
@@ -46,7 +46,6 @@ public class LocationTests
     {
         // Arrange
         var locationId = Guid.NewGuid();
-        var mapId = Guid.NewGuid();
         var playerId = Guid.NewGuid();
         var name = "name";
         var description = "description";
@@ -54,11 +53,10 @@ public class LocationTests
         var isStartLocation = true;
 
         // Act
-        var location = PlayerLocation.Create(locationId, mapId, playerId, name, description, connections, isStartLocation);
+        var location = PlayerLocation.Create(locationId, playerId, name, description, connections, isStartLocation);
 
         // Assert
         location.Id.Should().Be(locationId);
-        location.MapId.Should().Be(mapId);
         location.PlayerId.Should().Be(playerId);
         location.Name.Should().Be(name);
         location.Description.Should().Be(description);
