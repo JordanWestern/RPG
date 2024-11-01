@@ -1,4 +1,4 @@
-import SidebarItem from '../sidebar/sidebar-item';
+import SidebarItem from './sidebar-item';
 import PersonIcon from '@mui/icons-material/Person';
 
 type PlayerSideBarItemProps = {

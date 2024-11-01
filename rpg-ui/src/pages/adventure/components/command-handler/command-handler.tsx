@@ -1,8 +1,8 @@
 import { Autocomplete, IconButton, Stack, TextField } from '@mui/material';
-import React, { ReactElement, useState } from 'react';
-import TravelToCommandHandler from '../command-handler/travel-to-command-handler';
-import UseItemCommandHandler from '../command-handler/use-item-command-handler';
-import AttackCommandHandler from '../command-handler/attack-command-handler';
+import { ReactElement, useState } from 'react';
+import TravelToCommandHandler from './travel-to-command-handler';
+import UseItemCommandHandler from './use-item-command-handler';
+import AttackCommandHandler from './attack-command-handler';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 
 const CommandHandler = () => {

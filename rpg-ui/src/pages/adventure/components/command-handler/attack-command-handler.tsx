@@ -1,5 +1,5 @@
 import { Autocomplete, Chip, Stack, TextField } from '@mui/material';
-import React, { MutableRefObject, useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
 
 type AttackCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;

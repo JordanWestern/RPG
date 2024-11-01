@@ -6,13 +6,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import PlayerSideBarItem from '../sidebar/player-sidebar-item';
-import SidebarItem from '../sidebar/sidebar-item';
+import PlayerSideBarItem from './player-sidebar-item';
+import SidebarItem from './sidebar-item';
 import { useState } from 'react';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import { ExistingPlayer } from '../../../api/utils/player/player-api';
+import { ExistingPlayer } from '../../../../api/utils/player/player-api';
 
 const drawerWidth = 240;
 

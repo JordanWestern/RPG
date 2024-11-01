@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { useRef, useState } from 'react';
 import AdventurePage from '../adventure/adventure-page';
 import CreatePlayerPage from '../player/create-player-page';
-import Sidebar from './sidebar/sidebar';
+import Sidebar from './components/sidebar/sidebar';
 import { ExistingPlayer } from '../../api/utils/player/player-api';
 
 const MainPage = () => {
