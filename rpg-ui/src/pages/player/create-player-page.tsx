@@ -6,7 +6,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Stack
+  Stack,
+  TextField
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import Spinner from '../../shared/spinner';
@@ -17,10 +18,8 @@ import {
   getExistingPlayers,
   NewPlayer
 } from '../../api/utils/player/player-api';
-import { Map } from '../../api/utils/map/map-api';
+import { getMaps, Map } from '../../api/utils/map/map-api';
 import './create-player-page.css';
-import PlayerNameField from './player-name-field';
-import SelectMapDropdown from './select-map-dropdown';
 
 type CreatePlayerPageProps = {
   continueWithPlayer: (selectedPlayer: ExistingPlayer) => void;
@@ -28,9 +27,10 @@ type CreatePlayerPageProps = {
 
 const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
   const [existingPlayers, setExistingPlayers] = useState<ExistingPlayer[]>([]);
+  const [maps, setMaps] = useState<Map[]>([]);
   const [apiReady, setApiReady] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<ExistingPlayer | null>(null);
-  const selectedMap = useRef<Map | undefined>(undefined);
+  const [selectedMap, setSelectedMap] = useState<Map | null>(null);
   const playerName = useRef('Grognak the barbarian');
 
   useCheckApiStatus(setApiReady);
@@ -49,8 +49,20 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
     }
   }, [apiReady]);
 
+  useEffect(() => {
+    const fetchMaps = async () => {
+      const maps = await getMaps();
+      setMaps(maps);
+      setSelectedMap(maps[0]);
+    };
+
+    if (apiReady) {
+      fetchMaps();
+    }
+  }, [apiReady]);
+
   const handleCreatePlayer = async () => {
-    const newPlayer: NewPlayer = { name: playerName.current, mapId: selectedMap.current.id };
+    const newPlayer: NewPlayer = { name: playerName.current, mapId: selectedMap.id };
     const createdPlayer = await createNewPlayer(newPlayer);
     setExistingPlayers((existingPlayers) => [...existingPlayers, createdPlayer]);
     setSelectedPlayer(createdPlayer);
@@ -61,16 +73,53 @@ const CreatePlayerPage = ({ continueWithPlayer }: CreatePlayerPageProps) => {
     setSelectedPlayer(selection);
   };
 
+  const onMapSelected = (mapId: string) => {
+    const selection = maps.find((map) => map.id === mapId);
+    setSelectedMap(selection);
+  };
+
   return (
     <div className={apiReady ? '' : 'blurred'}>
       {!apiReady && <Spinner />}
       <Container>
         <FormGroup>
           <Stack spacing={5}>
-            <PlayerNameField onChange={(name) => (playerName.current = name)} />
-            <SelectMapDropdown
-              onChange={(map) => (selectedMap.current = map)}
-              apiReady={apiReady}
+            <TextField
+              id="characterName"
+              label="Character Name"
+              variant="standard"
+              placeholder={playerName.current}
+              onChange={(e) => (playerName.current = e.target.value)}
+            />
+            <FormControl variant="standard">
+              <InputLabel id="select-map-label">Select Map</InputLabel>
+              <Select
+                id="select-map"
+                labelId="select-map-label"
+                value={selectedMap?.id ?? ''}
+                onChange={(e) => onMapSelected(e.target.value)}>
+                {maps.map((map) => (
+                  <MenuItem key={map.id} value={map.id}>
+                    {map.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              // TODO: There is a bug in the MUI component https://github.com/mui/material-ui/issues/43718
+              // if the page is resized in dev, you get ResizeObserver loop completed with undelivered notifications.
+              // Should not surface in the release build.
+              id="outlined-read-only-input"
+              color="secondary"
+              defaultValue={selectedMap?.description ?? null}
+              multiline
+              label={`Description: ${selectedMap?.name ?? 'Default Map Name'}`}
+              InputProps={{
+                readOnly: true
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
             />
             <Button variant="outlined" onClick={handleCreatePlayer}>
               Create New Player
