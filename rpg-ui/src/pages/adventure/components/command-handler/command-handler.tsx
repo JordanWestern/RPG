@@ -1,5 +1,5 @@
 import { Autocomplete, IconButton, Stack, TextField } from '@mui/material';
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import TravelToCommandHandler from '../command-handler/travel-to-command-handler';
 import UseItemCommandHandler from '../command-handler/use-item-command-handler';
 import AttackCommandHandler from '../command-handler/attack-command-handler';
@@ -8,7 +8,7 @@ import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 const CommandHandler = () => {
   const commands = ['Travel To', 'Use Item', 'Attack'];
 
-  const [currentCommandHandler, setCommandHandler] = useState<ReactElement>(null);
+  const [currentCommandHandler, setCommandHandler] = useState<ReactElement | null>(null);
 
   const [commandValid, setCommandValid] = useState(false);
 

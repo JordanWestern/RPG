@@ -1,6 +1,6 @@
 import { Box, Chip, Stack, Typography } from '@mui/material';
-import LogTable from '../../components/log-table/log-table';
-import CommandHandler from '../../components/command-handler/command-handler';
+import LogTable from '../adventure/components/log-table/log-table';
+import CommandHandler from '../adventure/components/command-handler/command-handler';
 import './adventure-page.css';
 import { ExistingPlayer } from '../../api/utils/player/player-api';
 

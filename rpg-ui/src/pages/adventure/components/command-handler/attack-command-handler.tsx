@@ -1,5 +1,5 @@
 import { Autocomplete, Chip, Stack, TextField } from '@mui/material';
-import { MutableRefObject, useRef } from 'react';
+import React, { MutableRefObject, useRef } from 'react';
 
 type AttackCommandHandlerProps = {
   setCommandValid: (commandValid: boolean) => void;
@@ -9,7 +9,11 @@ const AttackCommandHandler = ({ setCommandValid }: AttackCommandHandlerProps) =>
   const target = useRef<string>(null);
   const weapon = useRef<string>(null);
 
-  function updateSelection(selection: string, items: string[], ref: MutableRefObject<string>) {
+  function updateSelection(
+    selection: string,
+    items: string[],
+    ref: MutableRefObject<string | null>
+  ) {
     items.includes(selection) ? (ref.current = selection) : (ref.current = null);
 
     setCommandValid(Boolean(target.current && weapon.current));

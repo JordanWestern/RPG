@@ -9,7 +9,7 @@ import {
   TableRow
 } from '@mui/material';
 import { useEffect, useState, useRef } from 'react';
-import { GameLog, getGameLogs } from '../../api/game-logs/game-logs-api';
+import { GameLog, getGameLogs } from '../../../../api/game-logs/game-logs-api';
 
 type LogTableProps = {
   playerId: string;
