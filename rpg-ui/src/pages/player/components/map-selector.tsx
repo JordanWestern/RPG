@@ -1,6 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Map } from '../../../api/utils/map/map-api';
-import React from 'react';
 
 type MapSelectorProps = {
   maps: Map[];

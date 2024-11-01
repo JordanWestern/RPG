@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material';
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 const PlayerNameInput = () => {
@@ -10,12 +9,16 @@ const PlayerNameInput = () => {
 
   return (
     <TextField
-      {...register('name', { required: 'Player name is required' })}
-      id="characterName"
-      label="Character Name"
+      {...register('name', { required: 'Required' })}
+      id="PlayerName"
+      label={
+        <>
+          Player Name{' '}
+          <span style={{ color: 'red', marginLeft: '5px' }}>{errors.name ? '⛔' : ''}</span>
+        </>
+      }
       variant="standard"
       error={!!errors.name}
-      //   helperText={errors.name?.message}
     />
   );
 };

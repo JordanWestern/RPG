@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
 import { Map } from '../../../api/utils/map/map-api';
-import React from 'react';
 
 type MapDescriptionProps = {
   selectedMap: Map | null;

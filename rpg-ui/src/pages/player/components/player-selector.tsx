@@ -1,6 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { ExistingPlayer } from '../../../api/utils/player/player-api';
-import React from 'react';
 
 type PlayerSelectorProps = {
   players: ExistingPlayer[];
