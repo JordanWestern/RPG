@@ -21,9 +21,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<GameLog>().Property(gameLog => gameLog.PlayerId).IsRequired();
         modelBuilder.Entity<GameLog>().Property(gameLog => gameLog.Date).IsRequired();
         modelBuilder.Entity<GameLog>().Property(gameLog => gameLog.LogMessage).IsRequired();
+        modelBuilder.Entity<GameLog>().HasIndex(gameLog => gameLog.PlayerId);
 
         modelBuilder.Entity<PlayerLocation>().HasKey(location => new { location.PlayerId, location.Id });
-        modelBuilder.Entity<PlayerLocation>().Property(location => location.PlayerId).IsRequired();
         modelBuilder.Entity<PlayerLocation>().Property(location => location.Name).IsRequired();
         modelBuilder.Entity<PlayerLocation>().Property(location => location.Description).IsRequired();
         modelBuilder.Entity<PlayerLocation>().Property(location => location.Connections).IsRequired();
